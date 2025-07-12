@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Proba Pro";
+  src: url(https://db.onlinewebfonts.com/t/06b277136976f20438c2ea811c45a4b0.woff2)
+    format("woff2");
+}
+
+@font-face {
+  font-family: "RockStarBold";
+  src: url(../src/assets/fonts/RockStar-Bold.woff) format("woff");
+}
+
+@font-face {
+  font-family: "RockStarMedium";
+  src: url(../src/assets/fonts/RockStar-Medium.woff) format("woff");
+}
+
+body {
+  margin: 0;
+  font-family: inherit;
+}
