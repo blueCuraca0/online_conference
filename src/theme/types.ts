@@ -26,32 +26,30 @@ declare module "@mui/material/styles" {
   interface MainPaletteColorOptions {
     white?: string;
     black?: string;
+    background?: string;
     primary?: string;
     primaryLight?: string;
-    primaryDark?: string;
+    secondary?: string;
   }
   interface MainPaletteColor {
-    white?: string;
-    black?: string;
-    primary?: string;
-    primaryLight?: string;
-    primaryDark?: string;
+    white: string;
+    black: string;
+    background: string;
+    primary: string;
+    primaryLight: string;
+    secondary: string;
   }
   interface AccentPaletteColorOptions {
-    green1?: string;
-    green2?: string;
-    blue2?: string;
-    blue3?: string;
-    blue4?: string;
-    yellow1?: string;
+    text?: string;
   }
   interface AccentPaletteColor {
-    green1: string;
-    green2: string;
-    blue2: string;
-    blue3: string;
-    blue4: string;
-    yellow1: string;
+    text: string;
+    // green1: string;
+    // green2: string;
+    // blue2: string;
+    // blue3: string;
+    // blue4: string;
+    // yellow1: string;
   }
 
   interface GradientsPaletteColorOptions {

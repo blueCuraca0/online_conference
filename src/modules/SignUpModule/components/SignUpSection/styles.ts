@@ -1,10 +1,10 @@
-import { basicTheme } from "theme";
 import { SxStyles } from "types/styles";
 
 export const styles: SxStyles = {
   root: {
     display: "flex",
-    flexDirection: "column",
-    rowGap: 8,
+    flexDirection: "row",
+    minHeight: "100vh",
+    overflow: "hidden",
   },
 };

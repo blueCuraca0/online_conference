@@ -3,12 +3,12 @@ import { SxStyles } from "types/styles";
 
 export const styles: SxStyles = {
   button: {
-    py: 2,
-    px: 3,
+    py: 4,
+    px: 6,
     borderRadius: 2,
     bgcolor: basicTheme.palette.mainPalette.black,
     "&:hover": {
-      bgcolor: basicTheme.palette.mainPalette.primaryDark,
+      bgcolor: basicTheme.palette.mainPalette.primaryLight,
     },
     // "&&&.Mui-disabled": {
     //   bgcolor: "transparent",
