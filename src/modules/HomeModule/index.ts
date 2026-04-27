@@ -1,1 +1,1 @@
-export * from "./components/HomeSection";
+export { default as HomeSection } from "./components/HomeSection";

@@ -1,12 +1,9 @@
 import { FC } from "react";
 
-import HomeSection from "modules/HomeModule/components/HomeSection";
+import { HomeSection } from "modules/HomeModule";
 
 const HomePage: FC = () => {
-
-  return (
-    <HomeSection/>
-  );
+  return <HomeSection />;
 };
 
 export default HomePage;

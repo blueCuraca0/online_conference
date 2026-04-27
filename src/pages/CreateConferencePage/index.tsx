@@ -1,14 +1,9 @@
 import { FC } from "react";
 
-import { PageWithHeader } from "components/PageWithHeader";
-import { Typography } from "ui/Typography";
+import { CreateConferenceSection } from "modules/CreateConferenceModule";
 
 const CreateConferencePage: FC = () => {
-  return (
-    <PageWithHeader>
-      <Typography variant="h2">Create Conference</Typography>
-    </PageWithHeader>
-  );
+  return <CreateConferenceSection />;
 };
 
 export default CreateConferencePage;
