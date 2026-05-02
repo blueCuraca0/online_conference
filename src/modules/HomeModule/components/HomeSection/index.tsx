@@ -1,22 +1,22 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import { Box } from "ui/Box";
-import Sidebar from "./components/Sidebar";
-import MainContent from "./components/MainContent";
-import SettingsContent from "./components/SettingsContent";
-import StubContent from "./components/StubContent";
+import MainContent from "../MainContent";
+import { ProfileSection } from "modules/ProfileModule";
 import { styles } from "./styles";
-import { ActiveSection } from "./types";
+import { useHomeSectionController } from "./useHomeSectionController";
+import StubContent from "../StubContent";
+import Sidebar from "../Sidebar";
 
 const HomeSection: FC = () => {
-  const [activeSection, setActiveSection] = useState<ActiveSection>("conferences");
+  const { activeSection, setActiveSection } = useHomeSectionController();
 
   const renderContent = () => {
     switch (activeSection) {
       case "conferences":
         return <MainContent />;
       case "profile":
-        return <SettingsContent />;
+        return <ProfileSection />;
       default:
         return <StubContent section={activeSection} />;
     }

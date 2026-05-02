@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import { Box } from "ui/Box";
-import SignUpPanel from "./components/SignUpPanel";
-import TestimonialPanel from "./components/TestimonialPanel";
+import SignUpPanel from "../SignUpPanel";
+import TestimonialPanel from "../TestimonialPanel";
 import { styles } from "./styles";
 
 const SignUpSection: FC = () => {

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { apiBaseUrl } from "utils";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "lib/supabase";
 
 const api = axios.create({
-  baseURL: `${apiBaseUrl}/api/`,
+  baseURL: `http://localhost:8000`,
   headers: {
     "Content-type": "application/json",
   },
@@ -12,11 +13,19 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+  async (config) => {
+    // const token = localStorage.getItem("access_token");
+
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user) {
+      config.headers["x-user-id"] = user.id;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -35,24 +44,8 @@ api.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
-      try {
-        const refreshToken = localStorage.getItem("refresh_token");
-        const response = await axios.post(
-          `${apiBaseUrl}/api/auth/refresh_token/`,
-          {
-            refresh: refreshToken,
-          }
-        );
-        const token = response.data.access;
-        localStorage.setItem("access_token", token);
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        return axios(originalRequest);
-      } catch (error) {
-        localStorage.removeItem("refresh_token");
-        localStorage.removeItem("access_token");
-        const navigate = useNavigate();
-        navigate("/login");
-      }
+      const navigate = useNavigate();
+      navigate("/login");
     }
 
     return Promise.reject(error);

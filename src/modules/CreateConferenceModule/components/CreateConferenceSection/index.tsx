@@ -1,15 +1,12 @@
-import { FC, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { FC } from "react";
 import { SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
-import ConferenceForm from "./components/ConferenceForm";
-import ConferenceSetup from "./components/ConferenceSetup";
+import ConferenceForm from "../ConferenceForm";
+import ConferenceSetup from "../ConferenceSetup";
 import { styles } from "./styles";
-
-type ConferenceMode = "startNow" | "schedule" | "recurring";
+import { useCreateConferenceSectionController } from "./useCreateConferenceSectionController";
 
 const BackIcon: FC = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -18,21 +15,13 @@ const BackIcon: FC = () => (
 );
 
 const CreateConferenceSection: FC = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [mode, setMode] = useState<ConferenceMode>("schedule");
-
-  const MODES: { key: ConferenceMode; label: string }[] = [
-    { key: "startNow", label: t("modeStartNow") },
-    { key: "schedule", label: t("modeSchedule") },
-    { key: "recurring", label: t("modeRecurring") },
-  ];
+  const { t, mode, setMode, MODES, handleBack } = useCreateConferenceSectionController();
 
   return (
     <Box sx={styles.root}>
       <Box sx={styles.header}>
         <Box sx={styles.headerLeft}>
-          <Box sx={styles.backButton} onClick={() => navigate("/home")}>
+          <Box sx={styles.backButton} onClick={handleBack}>
             <BackIcon />
           </Box>
           <Box>

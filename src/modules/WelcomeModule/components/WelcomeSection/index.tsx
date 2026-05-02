@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import { Box } from "ui/Box";
-import SignInPanel from "./components/SignInPanel";
-import DecorativePanel from "./components/DecorativePanel";
+import SignInPanel from "../SignInPanel";
+import DecorativePanel from "../DecorativePanel";
 import { styles } from "./styles";
 
 const WelcomeSection: FC = () => {
