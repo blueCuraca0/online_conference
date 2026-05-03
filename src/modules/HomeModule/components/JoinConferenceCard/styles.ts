@@ -1,5 +1,6 @@
 import { basicTheme } from "theme";
 import { SxStyles } from "types/styles";
+import { CSSProperties } from "react";
 
 const { mainPalette, accentPalette } = basicTheme.palette;
 
@@ -39,7 +40,6 @@ export const styles: SxStyles = {
     display: "flex",
     flexDirection: "row",
     gap: "5px",
-    flexWrap: "wrap",
     position: "relative",
     cursor: "text",
   },
@@ -70,6 +70,7 @@ export const styles: SxStyles = {
     minWidth: "unset",
   },
   pasteLinkRow: {
+    background: "pink",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -88,4 +89,12 @@ export const styles: SxStyles = {
       textDecoration: "underline",
     },
   },
+};
+
+export const hiddenInputStyle: CSSProperties = {
+  position: "absolute",
+  opacity: 0,
+  width: 0,
+  height: 0,
+  pointerEvents: "none",
 };

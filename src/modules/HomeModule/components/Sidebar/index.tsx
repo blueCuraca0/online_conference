@@ -5,6 +5,18 @@ import { SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
+import { ConferencesIcon } from "components/icons/ConferencesIcon";
+import { PlusSmIcon } from "components/icons/PlusSmIcon";
+import { ArrowIcon } from "components/icons/ArrowIcon";
+import { CalendarIcon } from "components/icons/CalendarIcon";
+import { ProfileIcon } from "components/icons/ProfileIcon";
+import { AudioIcon } from "components/icons/AudioIcon";
+import { AppearanceIcon } from "components/icons/AppearanceIcon";
+import { BellIcon } from "components/icons/BellIcon";
+import { LockIcon } from "components/icons/LockIcon";
+import { ShortcutsIcon } from "components/icons/ShortcutsIcon";
+import { BillingIcon } from "components/icons/BillingIcon";
+import { LogOutIcon } from "components/icons/LogOutIcon";
 import { styles } from "./styles";
 import { ActiveSection } from "../HomeSection/types";
 import { supabase } from "lib/supabase";
@@ -13,94 +25,6 @@ interface SidebarProps {
   activeSection: ActiveSection;
   onSectionChange: (section: ActiveSection) => void;
 }
-
-const ConferencesIcon: FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <rect x="1" y="2" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
-    <rect x="9" y="2" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
-    <rect x="1" y="9" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
-    <rect x="9" y="9" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
-  </svg>
-);
-
-const PlusIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const ArrowIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const CalendarIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="1" y="2.5" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M1 6h12M4.5 1v3M9.5 1v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const ProfileIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <circle cx="7" cy="5" r="3" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M1 13c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const AudioIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M5 1h4a2 2 0 012 2v3a2 2 0 01-4 0V3a2 2 0 00-2-2z" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M2 7a5 5 0 0010 0M7 12v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const AppearanceIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M7 1v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const BellIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M7 1a4 4 0 014 4v3l1.5 2h-11L3 8V5a4 4 0 014-4z" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M5.5 11a1.5 1.5 0 003 0" stroke="currentColor" strokeWidth="1.5" />
-  </svg>
-);
-
-const LockIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="2" y="6" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="currentColor" strokeWidth="1.5" />
-  </svg>
-);
-
-const ShortcutsIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="1" y="1" width="4" height="3" rx="1" stroke="currentColor" strokeWidth="1.3" />
-    <rect x="9" y="1" width="4" height="3" rx="1" stroke="currentColor" strokeWidth="1.3" />
-    <rect x="1" y="10" width="4" height="3" rx="1" stroke="currentColor" strokeWidth="1.3" />
-    <rect x="9" y="10" width="4" height="3" rx="1" stroke="currentColor" strokeWidth="1.3" />
-    <path d="M5 2.5h4M3 4v6M11 4v6M5 11.5h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-  </svg>
-);
-
-const BillingIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M1 6h12" stroke="currentColor" strokeWidth="1.5" />
-    <rect x="3" y="8" width="3" height="1.5" rx="0.5" fill="currentColor" />
-  </svg>
-);
-
-const LogOutIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M5 13H2a1 1 0 01-1-1V2a1 1 0 011-1h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <path d="M9.5 10l3-3-3-3M12.5 7H5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
 
 const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
   const { t } = useTranslation();
@@ -148,7 +72,7 @@ const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
         </Box>
         <Box sx={styles.subNav}>
           <Box sx={subNavItemSx("createNew")} onClick={() => onSectionChange("createNew")}>
-            <Box sx={styles.subNavIcon}><PlusIcon /></Box>
+            <Box sx={styles.subNavIcon}><PlusSmIcon /></Box>
             <Typography sx={subNavTextSx("createNew")}>{t("navCreateNew")}</Typography>
           </Box>
           <Box sx={subNavItemSx("joinWithCode")} onClick={() => onSectionChange("joinWithCode")}>

@@ -11,8 +11,10 @@ export const styles: SxStyles = {
     flexDirection: "column",
     gap: "16px",
   },
+
   cameraPreview: {
-    backgroundColor: mainPalette.primary,
+    background: "pink",
+    // backgroundColor: mainPalette.primary,
     borderRadius: "20px",
     height: "220px",
     position: "relative",
@@ -28,6 +30,7 @@ export const styles: SxStyles = {
       background: "radial-gradient(ellipse at 60% 40%, rgba(180,210,140,0.35) 0%, transparent 65%)",
     },
   },
+
   liveBadge: {
     display: "flex",
     flexDirection: "row",
@@ -49,6 +52,7 @@ export const styles: SxStyles = {
     fontWeight: "600 !important",
     color: mainPalette.white,
   },
+
   cameraLabel: {
     display: "flex",
     flexDirection: "column",
@@ -63,6 +67,7 @@ export const styles: SxStyles = {
     fontWeight: "600 !important",
     color: mainPalette.white,
   },
+
   linkCard: {
     backgroundColor: mainPalette.white,
     borderRadius: "20px",
@@ -76,11 +81,12 @@ export const styles: SxStyles = {
     color: accentPalette.text,
   },
   linkRow: {
+    background: "pink",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "10px",
-    backgroundColor: "#F5F0E6",
+    // backgroundColor: "#F5F0E6",
     borderRadius: "12px",
     padding: "10px 14px",
   },
@@ -100,6 +106,7 @@ export const styles: SxStyles = {
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
+  
   copyButton: {
     flexShrink: 0,
     minWidth: "unset",
@@ -120,6 +127,7 @@ export const styles: SxStyles = {
     gap: "4px",
   },
   deviceRow: {
+    background: "pink",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

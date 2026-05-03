@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
+import { CalendarIcon } from "components/icons/CalendarIcon";
+import { SearchSmIcon } from "components/icons/SearchSmIcon";
+import { LinkSmIcon } from "components/icons/LinkSmIcon";
 import { styles } from "./styles";
 
 interface Participant {
@@ -19,27 +22,6 @@ const STUB_PARTICIPANTS: Participant[] = [
   { initials: "JR", name: "Jules Reyes", color: "#7B7B5A" },
   { initials: "NK", name: "Naomi K.", color: "#9C7B5A" },
 ];
-
-const CalendarIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="1" y="2.5" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M1 6h12M4.5 1v3M9.5 1v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const SearchIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.4" />
-    <path d="M9.5 9.5l3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
-
-const LinkSmIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M6 8a3 3 0 004.243 0l1.414-1.414a3 3 0 00-4.243-4.243l-.707.707" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    <path d="M8 6a3 3 0 00-4.243 0L2.343 7.414a3 3 0 004.243 4.243l.707-.707" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
 
 interface FormValues {
   name: string;
@@ -150,7 +132,7 @@ const ConferenceForm: FC = () => {
           />
         </Box>
         <Box sx={styles.inviteInputWrapper}>
-          <Box sx={styles.searchIcon}><SearchIcon /></Box>
+          <Box sx={styles.searchIcon}><SearchSmIcon /></Box>
           <input
             value={inviteQuery}
             onChange={(e) => setInviteQuery(e.target.value)}

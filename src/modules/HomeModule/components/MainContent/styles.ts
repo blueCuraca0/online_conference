@@ -71,6 +71,7 @@ export const styles: SxStyles = {
     color: "rgba(255,255,255,0.7)",
   },
   searchText: {
+    background: "pink",
     fontSize: "13px !important",
     color: "rgba(255,255,255,0.65)",
   },

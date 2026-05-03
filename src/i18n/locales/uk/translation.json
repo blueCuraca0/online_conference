@@ -64,7 +64,7 @@
   "statLatency": "середня затримка",
   "statDataBrokers": "брокерів даних",
 
-  "homeGreeting": "Доброго ранку, Алекс",
+  "homeGreeting": "Доброго ранку, {{name}}",
   "homeDate": "Вівторок, 4 травня",
   "homeTitle": "Де бажаєте зустрітись?",
   "searchRoomsPlaceholder": "Пошук кімнат...",
@@ -75,7 +75,8 @@
   "joinConference": "Приєднатися до конференції",
   "joinConferenceDesc": "Введіть код із запрошення або вставте посилання confly.app.",
   "joinTheCall": "Приєднатися →",
-  "pasteLinkInstead": "або вставте посилання",
+  "or": "або",
+  "pasteLinkInstead": "вставте посилання",
   "upNext": "Наступні",
   "upNextCount": "4 у вашому календарі",
   "openCalendar": "Відкрити календар",

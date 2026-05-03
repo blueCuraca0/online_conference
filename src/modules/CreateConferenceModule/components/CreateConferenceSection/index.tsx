@@ -4,16 +4,11 @@ import { SxProps } from "@mui/material";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
+import { BackIcon } from "components/icons/BackIcon";
 import ConferenceForm from "../ConferenceForm";
 import ConferenceSetup from "../ConferenceSetup";
 import { styles } from "./styles";
 import { useCreateConferenceSectionController } from "./useCreateConferenceSectionController";
-
-const BackIcon: FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
 
 const CreateConferenceSection: FC = () => {
   const { t, mode, setMode, MODES, handleBack } = useCreateConferenceSectionController();

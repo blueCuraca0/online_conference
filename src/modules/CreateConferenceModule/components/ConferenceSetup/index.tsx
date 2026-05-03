@@ -4,64 +4,42 @@ import { useTranslation } from "react-i18next";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
+import { MicIcon } from "components/icons/MicIcon";
+import { SpeakerIcon } from "components/icons/SpeakerIcon";
+import { CameraIcon } from "components/icons/CameraIcon";
+import { MoreIcon } from "components/icons/MoreIcon";
+import { CopyIcon } from "components/icons/CopyIcon";
 import { styles } from "./styles";
 
+enum EDeviceLabelKey {
+  MICROPHONE = "deviceMicrophone",
+  SPEAKER = "deviceSpeaker",
+  CAMERA = "deviceCamera",
+}
+
 interface Device {
-  labelKey: "deviceMicrophone" | "deviceSpeaker" | "deviceCamera";
+  labelKey: EDeviceLabelKey;
   name: string;
   icon: FC;
 }
 
-const MicIcon: FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M8 1a3 3 0 013 3v4a3 3 0 01-6 0V4a3 3 0 013-3z" stroke="currentColor" strokeWidth="1.4" />
-    <path d="M3 8a5 5 0 0010 0M8 13v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
-
-const SpeakerIcon: FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M2 6h3l4-3v10l-4-3H2V6z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-    <path d="M12 5.5a4 4 0 010 5M13.5 3.5a7 7 0 010 9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
-
-const CameraIcon: FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <rect x="1" y="4" width="11" height="8" rx="2" stroke="currentColor" strokeWidth="1.4" />
-    <path d="M12 6.5l3-1.5v6l-3-1.5" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-  </svg>
-);
-
-const MoreIcon: FC = () => (
-  <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
-    <circle cx="2" cy="2" r="1.5" fill="currentColor" />
-    <circle cx="8" cy="2" r="1.5" fill="currentColor" />
-    <circle cx="14" cy="2" r="1.5" fill="currentColor" />
-  </svg>
-);
-
-const CopyIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-    <path d="M2 10V2h8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 const STUB_DEVICES: Device[] = [
-  { labelKey: "deviceMicrophone", name: "MacBook Air mic", icon: MicIcon },
-  { labelKey: "deviceSpeaker", name: "AirPods Pro", icon: SpeakerIcon },
-  { labelKey: "deviceCamera", name: "FaceTime HD", icon: CameraIcon },
+  { labelKey: EDeviceLabelKey.MICROPHONE, name: "MacBook Air mic", icon: MicIcon },
+  { labelKey: EDeviceLabelKey.SPEAKER, name: "AirPods Pro", icon: SpeakerIcon },
+  { labelKey: EDeviceLabelKey.CAMERA, name: "FaceTime HD", icon: CameraIcon },
 ];
 
-const STUB_LINK = "confly.app/r/quiet-river-204";
+const STUB_LINK = "localhost:3000/conference/";
+// const STUB_LINK = "https://confly.app/r/quiet-river-204";
 
 const ConferenceSetup: FC = () => {
   const { t } = useTranslation();
 
+  const generatedCode = "1F4DAKNO82" // TODO: generate it here or on the backend and fetch it on component mount
+
   const handleCopyLink = () => {
     // TODO: copy to clipboard
-    void navigator.clipboard.writeText(`https://${STUB_LINK}`);
+    void navigator.clipboard.writeText(`${STUB_LINK}${generatedCode}`);
   };
 
   const handleDeviceMenu = (_deviceName: string) => {
@@ -97,6 +75,7 @@ const ConferenceSetup: FC = () => {
 
       <Box sx={styles.devicesCard}>
         <Typography variant="h3" sx={styles.cardTitle}>{t("devicesTitle")}</Typography>
+
         <Box sx={styles.deviceList}>
           {STUB_DEVICES.map(({ labelKey, name, icon: Icon }) => (
             <Box key={name} sx={styles.deviceRow}>

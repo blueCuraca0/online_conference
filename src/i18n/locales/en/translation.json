@@ -64,7 +64,7 @@
   "statLatency": "avg latency",
   "statDataBrokers": "data brokers",
 
-  "homeGreeting": "Good morning, Alex",
+  "homeGreeting": "Good morning, {{name}}",
   "homeDate": "Tuesday, May 4",
   "homeTitle": "Where would you like to meet?",
   "searchRoomsPlaceholder": "Search rooms...",
@@ -75,7 +75,8 @@
   "joinConference": "Join a conference",
   "joinConferenceDesc": "Enter the code from your invite, or paste a confly.app link.",
   "joinTheCall": "Join the call →",
-  "pasteLinkInstead": "or paste a link instead",
+  "or": "or",
+  "pasteLinkInstead": "paste a link instead",
   "upNext": "Up next",
   "upNextCount": "4 on your calendar",
   "openCalendar": "Open calendar",

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
+import { CalendarOpenIcon } from "components/icons/CalendarOpenIcon";
 import { styles } from "./styles";
 import { useConferenceStore } from "stores/conferenceStore";
 import { useNavigate } from "react-router-dom";
@@ -53,22 +54,6 @@ import { useNavigate } from "react-router-dom";
 //   },
 // ];
 
-const CalendarOpenIcon: FC = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <rect x="1" y="2.5" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M1 6h12M4.5 1v3M9.5 1v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const PeopleIcon: FC = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-    <circle cx="4.5" cy="4" r="2" stroke="currentColor" strokeWidth="1.2" />
-    <path d="M0.5 11c0-2.21 1.79-3.5 4-3.5s4 1.29 4 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-    <circle cx="9" cy="3.5" r="1.5" stroke="currentColor" strokeWidth="1.2" />
-    <path d="M11.5 10.5c0-1.66-1.12-2.8-2.5-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-  </svg>
-);
-
 const UpNextSection: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate()
@@ -115,7 +100,7 @@ const UpNextSection: FC = () => {
                 {/* <Box sx={{ ...styles.hostAvatar, backgroundColor: conference.hostColor } as SxProps}>
                   <Typography sx={styles.hostInitials}>{conference.hostInitials}</Typography>
                 </Box> */}
-                {/* <PeopleIcon /> */}
+                {/* <PeopleSmIcon /> */}
                 {/* <Typography sx={styles.participantCount}>{conference.participantCount}</Typography> */}
               </Box>
             </Box>
@@ -127,7 +112,7 @@ const UpNextSection: FC = () => {
                 </Typography>
               </Box>
             </Box>
-            
+
             <Box sx={styles.actionCol}>
               {/* isPrimary join/details split — not available on Conference type; show details for all */}
               <Button

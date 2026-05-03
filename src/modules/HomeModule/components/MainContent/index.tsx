@@ -6,18 +6,17 @@ import { Typography } from "ui/Typography";
 import StartConferenceCard from "../StartConferenceCard";
 import JoinConferenceCard from "../JoinConferenceCard";
 import UpNextSection from "../UpNextSection";
+import { SearchIcon } from "components/icons/SearchIcon";
 import { styles } from "./styles";
 import { useConferenceController } from "hooks/useConferenceController";
+import { useProfileStore } from "stores/profileStore";
+import { getToday } from "helpers";
 
-const SearchIcon: FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
+const today = getToday();
 
 const MainContent: FC = () => {
   const { t } = useTranslation();
+  const { profile } = useProfileStore();
   useConferenceController(true);
 
   return (
@@ -26,10 +25,12 @@ const MainContent: FC = () => {
         <Box sx={styles.headerLeft}>
           <Box sx={styles.dateLine}>
             <Box sx={styles.dot} />
-            <Typography sx={styles.dateText}>{t("homeDate")} · {t("homeGreeting")}</Typography>
+            <Typography sx={styles.dateText}>{today} · {t("homeGreeting", { name: profile?.displayName })}</Typography>
           </Box>
+
           <Typography variant="h1" sx={styles.bannerTitle}>{t("homeTitle")}</Typography>
         </Box>
+
         <Box sx={styles.headerRight}>
           <Box sx={styles.searchBox}>
             <SearchIcon />
@@ -38,6 +39,7 @@ const MainContent: FC = () => {
               <Typography sx={styles.searchKbdText}>⌘K</Typography>
             </Box>
           </Box>
+
           <Box sx={styles.avatar}>
             <Typography sx={styles.avatarText}>AM</Typography>
           </Box>
