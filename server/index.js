@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const express = require('express');
+const crypto = require('crypto');
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const app = express();
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 const respond = (res, { data, error }) => {
-  if (error) return res.json({ success: false, data: error.message });
+  if (error) return res.status(400).json({ success: false, data: error.message });
   res.json({ success: true, data });
 };
 
@@ -44,10 +45,25 @@ app.get('/conferences', async (req, res) => {
   respond(res, result);
 });
 
+// export interface Conference {
+//   name: string | null;
+//   agenda: string | null;
+//   date: string | null;
+//   duration: number;
+// 
+//   id: string;
+//   created_at: string;
+//   creator_id: string;
+//   ended_at: string | null;
+//   code: string | null;
+// }
+
 app.post('/conferences', async (req, res) => {
+  const secretString = crypto.randomBytes(5).toString('hex').slice(0, 10).toUpperCase();
+
   const result = await supabase
     .from('conferences')
-    .insert({ ...req.body, creator_id: req.userId })
+    .insert({ ...req.body, creator_id: req.userId, code: secretString })
     .select()
     .single();
 
@@ -79,7 +95,7 @@ app.delete('/conferences', async (req, res) => {
     .eq('creator_id', req.userId)
     .select()
     .single();
-    
+
   respond(res, result);
 });
 

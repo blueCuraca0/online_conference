@@ -45,7 +45,6 @@ const CreateConferenceSection: FC = () => {
 
       <Box sx={styles.body}>
         <ConferenceForm />
-        <ConferenceSetup />
       </Box>
     </Box>
   );

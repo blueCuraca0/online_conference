@@ -49,4 +49,7 @@ export const styles: SxStyles = {
     ".MuiTypography-root": { color: mainPalette.primary },
     color: mainPalette.primary,
   },
+  progress: {
+    marginLeft: 2,
+  },
 };

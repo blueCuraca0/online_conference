@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Participant } from "./types";
-
+import { useState } from "react";
+import { useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish } from "agora-rtc-react";
 export const STUB_PARTICIPANTS: Participant[] = [
   { id: "1", name: "Mira Gupta", isHost: true, isSpeaking: true },
   { id: "2", name: "Sasha Khan", isMuted: true },
@@ -9,16 +10,42 @@ export const STUB_PARTICIPANTS: Participant[] = [
   { id: "5", name: "Naomi Kestrel", isMuted: true, isCameraOff: true, initials: "NK" },
 ];
 
+// TODO: use real token generated from backend; 
+// when user opens the page with code, fetch their conferences and find the one with this code
+const TOKEN = 
+ "007eJxTYNjatqZas75yD8PJKP+Fu0s1vF7o6M8v/rRTWI1HxNB7wy8FBjPTJCOztFTL5FRzc5O0pOREEwPLtORkU3MzI6PkVCODT87fMxsCGRmiJC6yMDJAIIjPzVCSWlySnJGYl5eaw8AAAAZiIgQ=";
+const appId = process.env.REACT_APP_AGORA_APP_ID || "";
+
+const IS_READY = true;
+
 export const useConferenceSectionController = () => {
-  const { id } = useParams<{ id: string }>();
+  // TODO: store current conference object
+  const { id: channelName } = useParams<{ id: string }>();
+
+  const [token, setToken] = useState(TOKEN);
+
+  const [micOn, setMic] = useState(true);
+  const [cameraOn, setCamera] = useState(true);
+  
   const navigate = useNavigate();
 
+  useJoin({ 
+    appid: appId, 
+    channel: channelName || "", 
+    token: token ? token : null
+  }, IS_READY);
+
+  const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
+  const { localCameraTrack } = useLocalCameraTrack(cameraOn);
+
+  usePublish([localMicrophoneTrack, localCameraTrack]);
+
   const handleMute = () => {
-    // TODO: toggle local microphone mute state
+    setMic((prev) => !prev);
   };
 
   const handleCamera = () => {
-    // TODO: toggle local camera on/off state
+    setCamera((prev) => !prev);
   };
 
   const handleShare = () => {
@@ -51,15 +78,21 @@ export const useConferenceSectionController = () => {
   };
 
   return {
-    id,
-    handleMute,
-    handleCamera,
-    handleShare,
-    handleCaptions,
-    handleRaise,
-    handleChat,
-    handlePeople,
-    handleMore,
-    handleLeave,
+    channelName,
+    localMicrophoneTrack,
+    localCameraTrack,
+    micOn,
+    cameraOn,
+    actions: {
+      handleMute,
+      handleCamera,
+      handleShare,
+      handleCaptions,
+      handleRaise,
+      handleChat,
+      handlePeople,
+      handleMore,
+      handleLeave,
+    }
   };
 };

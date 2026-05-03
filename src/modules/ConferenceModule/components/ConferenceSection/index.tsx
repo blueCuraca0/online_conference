@@ -3,54 +3,58 @@ import { SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
 import ConferenceTopBar from "../ConferenceTopBar";
-import VideoGrid from "../VideoGrid";
 import ConferenceToolbar from "../ConferenceToolbar";
 import { styles } from "./styles";
-import { useConferenceSectionController, STUB_PARTICIPANTS } from "./useConferenceSectionController";
+import { useConferenceSectionController } from "./useConferenceSectionController";
+import { AgoraWrapper } from "../AgoraWrapper";
+import VideoGrid from "../VideoGrid";
 
-const ConferenceSection: FC = () => {
+const ConferenceSectionInner: FC = () => {
   const {
-    id,
-    handleMute,
-    handleCamera,
-    handleShare,
-    handleCaptions,
-    handleRaise,
-    handleChat,
-    handlePeople,
-    handleMore,
-    handleLeave,
+    localMicrophoneTrack,
+    localCameraTrack,
+    micOn,
+    cameraOn,
+    channelName,
+    actions,
   } = useConferenceSectionController();
 
   return (
-    <Box sx={{ ...styles.root } as SxProps}>
+    <Box sx={styles.root}>
       <Box sx={styles.topBarWrapper as SxProps}>
         <ConferenceTopBar
           title="Q3 Roadmap — Studio Sync"
           participantCount={5}
-          passcode="4·7·9·2"
-          link={`confly.app/r/quiet-river-${id ?? "204"}`}
+          code={channelName ?? "204"}
           recordingTime="24:18"
         />
       </Box>
 
       <Box sx={styles.gridWrapper as SxProps}>
-        <VideoGrid participants={STUB_PARTICIPANTS} />
+        <VideoGrid localCameraTrack={localCameraTrack} localMicrophoneTrack={localMicrophoneTrack} micOn={micOn} cameraOn={cameraOn} />
       </Box>
 
       <ConferenceToolbar
-        onMute={handleMute}
-        onCamera={handleCamera}
-        onShare={handleShare}
-        onCaptions={handleCaptions}
-        onRaise={handleRaise}
-        onChat={handleChat}
-        onPeople={handlePeople}
-        onMore={handleMore}
-        onLeave={handleLeave}
+        micOn={micOn}
+        cameraOn={cameraOn}
+        onMute={actions.handleMute}
+        onCamera={actions.handleCamera}
+        onShare={actions.handleShare}
+        onCaptions={actions.handleCaptions}
+        onRaise={actions.handleRaise}
+        onChat={actions.handleChat}
+        onPeople={actions.handlePeople}
+        onMore={actions.handleMore}
+        onLeave={actions.handleLeave}
       />
     </Box>
   );
 };
+
+const ConferenceSection: FC = () => (
+  <AgoraWrapper>
+    <ConferenceSectionInner />
+  </AgoraWrapper>
+);
 
 export default ConferenceSection;

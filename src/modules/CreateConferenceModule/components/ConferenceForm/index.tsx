@@ -1,14 +1,17 @@
-import { FC, useState, KeyboardEvent } from "react";
+import { FC, useState, KeyboardEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
-import { CalendarIcon } from "components/icons/CalendarIcon";
+import { Input, EInputType } from "components/Input";
+import { DateInput, EDateInputType } from "components/DateInput";
 import { SearchSmIcon } from "components/icons/SearchSmIcon";
 import { LinkSmIcon } from "components/icons/LinkSmIcon";
 import { styles } from "./styles";
+import { useConferenceController } from "hooks/useConferenceController";
+import CopyLink from "../CopyLink";
 
 interface Participant {
   initials: string;
@@ -25,27 +28,37 @@ const STUB_PARTICIPANTS: Participant[] = [
 
 interface FormValues {
   name: string;
-  date: string;
-  startTime: string;
-  length: string;
+  date: Date | null;
+  startTime: Date | null;
+  lengthMinutes: number;
   agenda: string;
 }
 
 const ConferenceForm: FC = () => {
   const { t } = useTranslation();
-  const { register } = useForm<FormValues>({
+  const { register, control, getValues, watch } = useForm<FormValues>({
     defaultValues: {
-      name: "Q3 Roadmap — Studio Sync",
-      date: "Mon, May 4 2026",
-      startTime: "10:30 AM",
-      length: "45 min",
-      agenda:
-        "1. Quick status from each pod (15 min)\n2. New pricing surface walkthrough — Mira\n3. Open questions + action items",
+      name: "",
+      date: new Date(Date.now()),
+      startTime: new Date(Date.now()),
+      lengthMinutes: 45,
+      agenda: "",
     },
   });
 
   const [participants, setParticipants] = useState<Participant[]>(STUB_PARTICIPANTS);
   const [inviteQuery, setInviteQuery] = useState("");
+  const [isContinueDisabled, setContinueIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [code, setCode] = useState<string | undefined>();
+
+  const { handleCreateConference } = useConferenceController();
+
+  const values = watch();
+
+  useEffect(() => {
+    setContinueIsDisabled(!values.name || !values.date || !values.startTime);
+  }, [values]);
 
   const removeParticipant = (name: string) => {
     setParticipants((prev) => prev.filter((p) => p.name !== name));
@@ -62,68 +75,70 @@ const ConferenceForm: FC = () => {
     // TODO: copy invite link to clipboard
   };
 
-  const handleSaveAsDraft = () => {
-    // TODO: save conference as draft
-  };
+  const handleSchedule = async () => {
+    setIsLoading(true);
+    const code = await handleCreateConference({
+      name: getValues("name"),
+      agenda: getValues("agenda"),
+      date: getValues("date")?.toISOString() || null,
+      duration: getValues("lengthMinutes"),
+    });
 
-  const handleSchedule = () => {
-    // TODO: submit form and schedule conference
+    setIsLoading(false);
+    
+    setTimeout(() => {
+      if (code) {
+        setCode(code);
+        alert(t("conferenceCreated"));
+      } else {
+        alert(t("conferenceCreationFailed"));
+      }
+    }, 500)
   };
 
   return (
     <Box sx={styles.root}>
       <Box sx={styles.card}>
-        <Box sx={styles.fieldGroup}>
-          <Typography sx={styles.fieldLabel}>{t("conferenceName")}</Typography>
-          <Box sx={styles.nameInputWrapper}>
-            <input
-              {...register("name")}
-              style={inputStyle}
-              placeholder={t("conferenceNamePlaceholder")}
-            />
-          </Box>
-        </Box>
+        <Input
+          label={t("conferenceName")}
+          {...register("name")}
+          placeholder={t("conferenceNamePlaceholder")}
+        />
 
         <Box sx={styles.row}>
-          <Box sx={styles.fieldGroup}>
-            <Typography sx={styles.fieldLabel}>{t("conferenceDate")}</Typography>
-            <Box sx={styles.dateInputWrapper}>
-              <Box sx={styles.dateIcon}><CalendarIcon /></Box>
-              <input
-                {...register("date")}
-                style={{ ...inputStyle, paddingLeft: 0 }}
-              />
-            </Box>
-          </Box>
-          <Box sx={styles.fieldGroup}>
-            <Typography sx={styles.fieldLabel}>{t("conferenceStart")}</Typography>
-            <Box sx={styles.smallInputWrapper}>
-              <input {...register("startTime")} style={inputStyle} />
-            </Box>
-          </Box>
-          <Box sx={styles.fieldGroup}>
-            <Typography sx={styles.fieldLabel}>{t("conferenceLength")}</Typography>
-            <Box sx={styles.smallInputWrapper}>
-              <input {...register("length")} style={inputStyle} />
-            </Box>
-          </Box>
+          <DateInput
+            label={t("conferenceDate")}
+            name="date"
+            control={control}
+            variantType={EDateInputType.DATE}
+          />
+          <DateInput
+            label={t("conferenceStart")}
+            name="startTime"
+            control={control}
+            variantType={EDateInputType.TIME}
+          />
+          <Input
+            label={t("conferenceLength")}
+            {...register("lengthMinutes", { valueAsNumber: true })}
+            type="number"
+            inputProps={{ min: 1 }}
+            sx={styles.smallInput}
+          />
         </Box>
 
-        <Box sx={styles.fieldGroup}>
-          <Typography sx={styles.fieldLabel}>{t("conferenceAgenda")}</Typography>
-          <Box sx={styles.agendaWrapper}>
-            <textarea
-              {...register("agenda")}
-              rows={5}
-              style={textareaStyle}
-            />
-          </Box>
-        </Box>
+        <Input
+          label={t("conferenceAgenda")}
+          variantType={EInputType.MULTILINE}
+          {...register("agenda")}
+          rows={5}
+        />
       </Box>
 
       <Box sx={styles.inviteCard}>
         <Box sx={styles.inviteHeader}>
           <Typography variant="h3" sx={styles.inviteTitle}>{t("invitePeople")}</Typography>
+          
           <Button
             variantType={EButtonType.GHOST}
             buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}><LinkSmIcon /><Typography sx={{ fontSize: "13px !important", fontWeight: "500 !important", color: "inherit" }}>{t("copyInviteLink")}</Typography></Box>}
@@ -131,22 +146,23 @@ const ConferenceForm: FC = () => {
             sx={styles.copyLinkBtn}
           />
         </Box>
-        <Box sx={styles.inviteInputWrapper}>
-          <Box sx={styles.searchIcon}><SearchSmIcon /></Box>
-          <input
-            value={inviteQuery}
-            onChange={(e) => setInviteQuery(e.target.value)}
-            onKeyDown={handleInviteKeyDown}
-            placeholder={t("addByNameOrEmail")}
-            style={{ ...inputStyle, paddingLeft: 0 }}
-          />
-        </Box>
+
+        <Input
+          value={inviteQuery}
+          onChange={(e) => setInviteQuery(e.target.value)}
+          onKeyDown={handleInviteKeyDown}
+          placeholder={t("addByNameOrEmail")}
+          startAdornment={<SearchSmIcon />}
+          sx={styles.searchInput}
+        />
+
         <Box sx={styles.chips}>
           {participants.map((p) => (
             <Box key={p.name} sx={styles.chip}>
               <Box sx={{ ...styles.chipAvatar, backgroundColor: p.color }}>
                 <Typography sx={styles.chipInitials}>{p.initials}</Typography>
               </Box>
+
               <Typography sx={styles.chipName}>{p.name}</Typography>
               <Box sx={styles.chipRemove} onClick={() => removeParticipant(p.name)}>
                 <Typography sx={styles.chipRemoveText}>×</Typography>
@@ -156,46 +172,20 @@ const ConferenceForm: FC = () => {
         </Box>
       </Box>
 
+      <CopyLink code={code} />
+
       <Box sx={styles.formActions}>
         <Button
-          variantType={EButtonType.GHOST}
-          buttonTitle={t("saveAsDraft")}
-          onClick={handleSaveAsDraft}
-          sx={styles.draftButton}
-        />
-        <Button
           variantType={EButtonType.PRIMARY}
-          buttonTitle={`${t("scheduleConference")} →`}
+          buttonTitle={t("scheduleConference")}
           onClick={handleSchedule}
           sx={styles.scheduleButton}
+          disabled={isContinueDisabled}
+          loading={isLoading}
         />
       </Box>
     </Box>
   );
-};
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  border: "none",
-  outline: "none",
-  background: "transparent",
-  fontFamily: "inherit",
-  fontSize: "15px",
-  color: "#4a4a3a",
-  padding: "0",
-};
-
-const textareaStyle: React.CSSProperties = {
-  width: "100%",
-  border: "none",
-  outline: "none",
-  background: "transparent",
-  fontFamily: "inherit",
-  fontSize: "14px",
-  color: "#4a4a3a",
-  resize: "none",
-  padding: "0",
-  lineHeight: "1.7",
 };
 
 export default ConferenceForm;

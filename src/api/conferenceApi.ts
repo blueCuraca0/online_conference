@@ -1,5 +1,5 @@
 import api from "api/axios";
-import { ConferenceResponse } from "types/conference";
+import { ConferenceResponse, CreateConferenceRequest } from "types/conference";
 import { ApiResponse } from "types/api";
 
 const conferenceApi = {
@@ -12,7 +12,7 @@ const conferenceApi = {
     }
   },
 
-  createConference: async (fields: Partial<ConferenceResponse>): Promise<ApiResponse<ConferenceResponse>> => {
+  createConference: async (fields: CreateConferenceRequest): Promise<ApiResponse<ConferenceResponse>> => {
     try {
       const response = await api.post("conferences", fields);
       return response.data;

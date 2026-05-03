@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 
-import { ButtonProps as MuiButtonProps } from "@mui/material";
+import { CircularProgress, ButtonProps as MuiButtonProps } from "@mui/material";
 import { Button as MuiButton } from "ui/Button";
 import { Typography } from "ui/Typography";
 
@@ -20,11 +20,13 @@ export enum EButtonType {
 export interface ButtonProps extends MuiButtonProps {
   variantType?: EButtonType;
   buttonTitle: string | ReactNode;
+  loading?: boolean;
 }
 
 export const Button: FC<ButtonProps> = ({
   variantType = EButtonType.PRIMARY,
   buttonTitle,
+  loading = false,
   ...rest
 }) => {
   const buttonStyle = (variantType: EButtonType): SxProps => {
@@ -40,12 +42,14 @@ export const Button: FC<ButtonProps> = ({
   };
 
   return (
-    <MuiButton {...rest} sx={buttonStyle(variantType)} disableRipple>
+    <MuiButton {...rest} sx={buttonStyle(variantType)} disableRipple disabled={loading || rest.disabled}>
       {typeof buttonTitle === "string" ? (
         <Typography variant="buttonTextSmall">{buttonTitle}</Typography>
       ) : (
         buttonTitle
       )}
+
+      {loading && <CircularProgress size={"1rem"} sx={styles.progress}/>}
     </MuiButton>
   );
 };

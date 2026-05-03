@@ -5,7 +5,9 @@ import { useTranslation } from "react-i18next";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { MuteIcon } from "components/icons/MuteIcon";
+import { MicOffToolbarIcon } from "components/icons/MicOffToolbarIcon";
 import { CameraToolbarIcon } from "components/icons/CameraToolbarIcon";
+import { CameraOffToolbarIcon } from "components/icons/CameraOffToolbarIcon";
 import { ShareIcon } from "components/icons/ShareIcon";
 import { CaptionsIcon } from "components/icons/CaptionsIcon";
 import { RaiseIcon } from "components/icons/RaiseIcon";
@@ -16,6 +18,8 @@ import { PhoneOffIcon } from "components/icons/PhoneOffIcon";
 import { styles } from "./styles";
 
 interface Props {
+  micOn: boolean;
+  cameraOn: boolean;
   onMute: () => void;
   onCamera: () => void;
   onShare: () => void;
@@ -27,14 +31,16 @@ interface Props {
   onLeave: () => void;
 }
 
+const INCLUDE_LABELS = false;
+
 const ConferenceToolbar: FC<Props> = ({
-  onMute, onCamera, onShare, onCaptions, onRaise, onChat, onPeople, onMore, onLeave,
+  micOn, cameraOn, onMute, onCamera, onShare, onCaptions, onRaise, onChat, onPeople, onMore, onLeave,
 }) => {
   const { t } = useTranslation();
 
   const tools = [
-    { icon: <MuteIcon />, label: t("toolbarMute"), onClick: onMute },
-    { icon: <CameraToolbarIcon />, label: t("toolbarCamera"), onClick: onCamera },
+    { icon: micOn ? <MuteIcon /> : <MicOffToolbarIcon />, label: t("toolbarMute"), onClick: onMute, active: !micOn },
+    { icon: cameraOn ? <CameraToolbarIcon /> : <CameraOffToolbarIcon />, label: t("toolbarCamera"), onClick: onCamera, active: !cameraOn },
     { icon: <ShareIcon />, label: t("toolbarShare"), onClick: onShare },
     { icon: <CaptionsIcon />, label: t("toolbarCaptions"), onClick: onCaptions },
     { icon: <RaiseIcon />, label: t("toolbarRaise"), onClick: onRaise },
@@ -49,11 +55,11 @@ const ConferenceToolbar: FC<Props> = ({
         <Box
           key={tool.label}
           component="button"
-          sx={styles.toolButton as SxProps}
+          sx={{ ...styles.toolButton, ...("active" in tool && tool.active ? styles.toolButtonActive : {}) } as SxProps}
           onClick={tool.onClick}
         >
           {tool.icon}
-          <Typography sx={styles.toolLabel}>{tool.label}</Typography>
+          {INCLUDE_LABELS && <Typography sx={"active" in tool && tool.active ? styles.toolLabelActive : styles.toolLabel}>{tool.label}</Typography>}
         </Box>
       ))}
 
@@ -65,7 +71,7 @@ const ConferenceToolbar: FC<Props> = ({
         onClick={onLeave}
       >
         <PhoneOffIcon />
-        <Typography sx={styles.leaveLabel}>{t("toolbarLeave")}</Typography>
+        {INCLUDE_LABELS && <Typography sx={styles.leaveLabel}>{t("toolbarLeave")}</Typography>}
       </Box>
     </Box>
   );

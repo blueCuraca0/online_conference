@@ -7,8 +7,9 @@ export const styles = {
     position: "relative",
     borderRadius: "16px",
     overflow: "hidden",
-    aspectRatio: "4/3",
     width: "100%",
+    height: "100%",
+    minHeight: 0,
     background: `radial-gradient(circle at 35% 35%, ${mainPalette.primaryLight}, ${mainPalette.primary})`,
   },
   cameraOff: {

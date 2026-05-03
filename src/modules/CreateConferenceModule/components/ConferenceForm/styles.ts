@@ -19,73 +19,18 @@ export const styles: SxStyles = {
     flexDirection: "column",
     gap: "22px",
   },
-  fieldGroup: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-    flex: 1,
-  },
-  fieldLabel: {
-    fontSize: "12px !important",
-    color: accentPalette.text,
-    opacity: 0.55,
-    fontWeight: "500 !important",
-  },
-  nameInputWrapper: {
-    borderRadius: "12px",
-    border: `1.5px solid rgba(0,0,0,0.1)`,
-    padding: "13px 16px",
-    backgroundColor: "#FAFAFA",
-    "&:focus-within": {
-      borderColor: mainPalette.primary,
-      backgroundColor: mainPalette.white,
-    },
-  },
   row: {
     display: "flex",
     flexDirection: "row",
     gap: "14px",
     alignItems: "flex-start",
   },
-  dateInputWrapper: {
-    borderRadius: "12px",
-    border: `1.5px solid rgba(0,0,0,0.1)`,
-    padding: "12px 14px",
-    backgroundColor: "#FAFAFA",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "8px",
-    "&:focus-within": {
-      borderColor: mainPalette.primary,
+  smallInput: {
+    "& .MuiOutlinedInput-input": {
+      padding: "12px 14px",
     },
   },
-  dateIcon: {
-    color: accentPalette.text,
-    opacity: 0.45,
-    display: "flex",
-    alignItems: "center",
-    flexShrink: 0,
-  },
-  smallInputWrapper: {
-    borderRadius: "12px",
-    border: `1.5px solid rgba(0,0,0,0.1)`,
-    padding: "12px 14px",
-    backgroundColor: "#FAFAFA",
-    "&:focus-within": {
-      borderColor: mainPalette.primary,
-    },
-  },
-  agendaWrapper: {
-    borderRadius: "12px",
-    border: `1.5px solid rgba(0,0,0,0.1)`,
-    padding: "14px 16px",
-    backgroundColor: "#FAFAFA",
-    "&:focus-within": {
-      borderColor: mainPalette.primary,
-      backgroundColor: mainPalette.white,
-    },
-  },
+
   inviteCard: {
     backgroundColor: mainPalette.white,
     borderRadius: "20px",
@@ -95,6 +40,7 @@ export const styles: SxStyles = {
     gap: "16px",
   },
   inviteHeader: {
+    background: "pink",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -109,25 +55,10 @@ export const styles: SxStyles = {
     py: "4px",
     px: "8px",
   },
-  inviteInputWrapper: {
-    borderRadius: "12px",
-    border: `1.5px solid rgba(0,0,0,0.1)`,
-    padding: "11px 14px",
-    backgroundColor: "#FAFAFA",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "8px",
-    "&:focus-within": {
-      borderColor: mainPalette.primary,
+  searchInput: {
+    "& .MuiOutlinedInput-input": {
+      padding: "11px 14px",
     },
-  },
-  searchIcon: {
-    color: accentPalette.text,
-    opacity: 0.4,
-    display: "flex",
-    alignItems: "center",
-    flexShrink: 0,
   },
   chips: {
     display: "flex",
@@ -186,7 +117,7 @@ export const styles: SxStyles = {
     display: "flex",
     flexDirection: "row",
     gap: "12px",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
   },
   draftButton: {
     py: "9px",

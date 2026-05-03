@@ -11,7 +11,7 @@ export const styles = {
     backgroundColor: mainPalette.background,
   },
   topBarWrapper: {
-    margin: "16px 16px 0",
+    // margin: "16px 16px 0",
   },
   gridWrapper: {
     flex: 1,

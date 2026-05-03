@@ -121,6 +121,8 @@
   "deviceMicrophone": "Microphone",
   "deviceSpeaker": "Speaker",
   "deviceCamera": "Camera",
+  "conferenceCreationFailed": "Failed to create conference. Please try again.",
+  "conferenceCreated": "Conference created successfully!",
 
   "stubComingSoon": "This section is coming soon.",
   "settingsSubtitle": "Manage your personal information and preferences.",

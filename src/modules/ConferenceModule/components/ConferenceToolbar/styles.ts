@@ -8,19 +8,18 @@ export const styles = {
     alignItems: "center",
     justifyContent: "center",
     gap: "8px",
-    py: "16px",
+    paddingBottom: "16px",
     px: "20px",
-    backgroundColor: mainPalette.background,
   },
+  
   toolButton: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: "1rem",
     gap: "4px",
     backgroundColor: "rgba(84,107,65,0.08)",
     borderRadius: "12px",
-    width: 68,
-    height: 64,
     border: "none",
     cursor: "pointer",
     justifyContent: "center",
@@ -33,12 +32,28 @@ export const styles = {
     color: mainPalette.primary,
     fontFamily: "'Proba Pro', Arial, serif",
   },
+
+  toolButtonActive: {
+    backgroundColor: systemPalette.red,
+    "&:hover": {
+      backgroundColor: "#c94040",
+    },
+  },
+  toolLabelActive: {
+    fontSize: "11px",
+    color: mainPalette.white,
+    fontFamily: "'Proba Pro', Arial, serif",
+  },
+
   divider: {
-    width: 1,
+    width: 2,
+    maxWidth: 2,
+    borderRadius: 2,
     height: 40,
     backgroundColor: "rgba(84,107,65,0.2)",
     mx: "4px",
   },
+
   leaveButton: {
     display: "flex",
     flexDirection: "column",
@@ -46,8 +61,7 @@ export const styles = {
     gap: "4px",
     backgroundColor: systemPalette.red,
     borderRadius: "12px",
-    width: 68,
-    height: 64,
+    padding: "1rem",
     border: "none",
     cursor: "pointer",
     justifyContent: "center",

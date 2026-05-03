@@ -5,30 +5,30 @@ import { useTranslation } from "react-i18next";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { PeopleIcon } from "components/icons/PeopleIcon";
-import { LockTopBarIcon } from "components/icons/LockTopBarIcon";
 import { LinkTopBarIcon } from "components/icons/LinkTopBarIcon";
 import { styles } from "./styles";
+import { CONFERENCE_LINK_BASE } from "utils";
 
 interface Props {
   title: string;
   participantCount: number;
-  passcode: string;
-  link: string;
+  code: string;
   recordingTime: string;
 }
 
-const ConferenceTopBar: FC<Props> = ({ title, participantCount, passcode, link, recordingTime }) => {
+const ConferenceTopBar: FC<Props> = ({ title, participantCount, code, recordingTime }) => {
   const { t } = useTranslation();
 
   return (
     <Box sx={styles.root as SxProps}>
       <Box sx={styles.left as SxProps}>
-        <Box sx={styles.recordingIndicator as SxProps}>
+        {/* <Box sx={styles.recordingIndicator as SxProps}>
           <Box sx={styles.recordingDot} />
           <Typography sx={styles.recordingText}>
             {t("conferenceRecording")} · {recordingTime}
           </Typography>
-        </Box>
+        </Box> */}
+
         <Typography sx={styles.title}>{title}</Typography>
       </Box>
 
@@ -37,13 +37,10 @@ const ConferenceTopBar: FC<Props> = ({ title, participantCount, passcode, link, 
           <PeopleIcon />
           <span>{participantCount}</span>
         </Box>
-        <Box sx={styles.badge as SxProps}>
-          <LockTopBarIcon />
-          <span>{passcode}</span>
-        </Box>
+
         <Box sx={styles.badge as SxProps}>
           <LinkTopBarIcon />
-          <span>{link}</span>
+          <span>{`${CONFERENCE_LINK_BASE}${code}`}</span>
         </Box>
       </Box>
     </Box>

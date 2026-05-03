@@ -10,7 +10,7 @@ export const styles = {
     backgroundColor: mainPalette.primary,
     px: "20px",
     py: "12px",
-    borderRadius: "16px 16px 0 0",
+    borderRadius: "0 0 16px 16px",
   },
   left: {
     display: "flex",

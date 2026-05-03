@@ -121,6 +121,8 @@
   "deviceMicrophone": "Мікрофон",
   "deviceSpeaker": "Динамік",
   "deviceCamera": "Камера",
+  "conferenceCreationFailed": "Не вдалося створити конференцію. Будь ласка, спробуйте знову.",
+  "conferenceCreated": "Конференцію успішно створено!",
 
   "stubComingSoon": "Цей розділ буде доступний незабаром.",
   "settingsSubtitle": "Керуйте особистою інформацією та налаштуваннями.",

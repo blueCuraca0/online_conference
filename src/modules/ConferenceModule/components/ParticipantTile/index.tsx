@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { SxProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -7,27 +7,33 @@ import { Typography } from "ui/Typography";
 import { MicOffIcon } from "components/icons/MicOffIcon";
 import { Participant } from "../ConferenceSection/types";
 import { styles } from "./styles";
+import { LocalUser } from "agora-rtc-react";
 
 interface Props {
   participant: Participant;
+  children: React.ReactNode;
+  sx?: SxProps;
+  // appId: string;
+  // channel: string;
+  // token: string;
+  // calling: boolean;
 }
 
-const ParticipantTile: FC<Props> = ({ participant }) => {
+const ParticipantTile: FC<Props> = ({ participant, children, sx }) => {
   const { t } = useTranslation();
   const { name, isHost, isYou, isMuted, isSpeaking, isCameraOff, initials } = participant;
 
   return (
     <Box
-      sx={
-        {
-          ...styles.root,
-          ...(isCameraOff ? styles.cameraOff : {}),
-        } as SxProps
-      }
+      sx={{
+        ...styles.root,
+        ...(isCameraOff ? styles.cameraOff : {}),
+        ...sx
+      } as SxProps}
     >
-      {isCameraOff && initials && (
+      {isCameraOff && initials ? (
         <Box sx={styles.initialsAvatar}>{initials}</Box>
-      )}
+      ) : (children)}
 
       {isSpeaking && (
         <Box sx={styles.speakingBadge as SxProps}>

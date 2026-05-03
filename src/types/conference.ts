@@ -1,12 +1,18 @@
 // API
 
-export interface ConferenceResponse {
-  id: string;
-  created_at: string;
+export interface CreateConferenceRequest {
   name: string | null;
   agenda: string | null;
   date: string | null;
+  duration: number;
+}
+
+export interface ConferenceResponse extends CreateConferenceRequest {
+  id: string;
+  created_at: string;
   creator_id: string;
+  ended_at: string | null;
+  code: string | null;
 }
 
 // Internal

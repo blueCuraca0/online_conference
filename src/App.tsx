@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { styles } from "AppStyles";
 import { theme } from "theme";
 
@@ -18,10 +20,12 @@ const App = () => {
   return (
     <Box>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box sx={styles.root}>
-          <Routing />
-        </Box>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <CssBaseline />
+          <Box sx={styles.root}>
+            <Routing />
+          </Box>
+        </LocalizationProvider>
       </ThemeProvider>
     </Box>
   );
