@@ -47,11 +47,7 @@ export const useSignUpController = () => {
     } else {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
-        try {
-          await profileApi.createUser({ id: user.id, email: pendingEmail, name: pendingName })
-        } catch (err) {
-          console.error("Error creating user profile:", err)
-        }
+        await profileApi.createUser({ id: user.id, email: pendingEmail, name: pendingName })
       }
       setSignUpSuccess(true)
     }

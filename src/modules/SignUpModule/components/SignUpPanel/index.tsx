@@ -23,6 +23,7 @@ interface SignUpFormValues {
   agreedToTerms: boolean;
 }
 
+const OTP_LENGTH = 8;
 const STEP_KEYS = ["stepAccount", "stepWorkspace", "stepDevices"] as const;
 
 const scorePassword = (password: string): number => {
@@ -105,11 +106,11 @@ const SignUpPanel: FC = () => {
           <Button
             buttonTitle={
               <Typography variant="buttonText" color={basicTheme.palette.mainPalette.white}>
-                {t("signInLink")}
+                {t("continueButton")}
               </Typography>
             }
             sx={styles.continueButton}
-            onClick={() => navigate("/sign-in")}
+            onClick={() => navigate("/home")}
           />
         </Box>
       </Box>
@@ -144,12 +145,12 @@ const SignUpPanel: FC = () => {
                 placeholder={t("otpPlaceholder")}
                 sx={styles.textField}
                 value={otp}
-                onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                inputProps={{ maxLength: 6, inputMode: "numeric" }}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, OTP_LENGTH))}
+                inputProps={{ maxLength: OTP_LENGTH, inputMode: "numeric" }}
               />
             </Box>
             <Button
-              disabled={loading || otp.length < 6}
+              disabled={loading || otp.length < OTP_LENGTH}
               buttonTitle={
                 <Typography variant="buttonText" color={basicTheme.palette.mainPalette.white}>
                   {loading ? "…" : t("otpVerifyButton")}

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
+import { Button, EButtonType } from "components/Button";
 import { styles } from "./styles";
 
 interface Device {
@@ -85,9 +86,12 @@ const ConferenceSetup: FC = () => {
         <Box sx={styles.linkRow}>
           <Box sx={styles.linkIcon}><CopyIcon /></Box>
           <Typography sx={styles.linkText}>{STUB_LINK}</Typography>
-          <Box sx={styles.copyButton} onClick={handleCopyLink}>
-            <Typography sx={styles.copyButtonText}>{t("copyButton")}</Typography>
-          </Box>
+          <Button
+            variantType={EButtonType.GHOST}
+            buttonTitle={t("copyButton")}
+            onClick={handleCopyLink}
+            sx={styles.copyButton}
+          />
         </Box>
       </Box>
 

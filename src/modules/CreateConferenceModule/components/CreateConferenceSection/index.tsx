@@ -3,6 +3,7 @@ import { SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
+import { Button, EButtonType } from "components/Button";
 import ConferenceForm from "../ConferenceForm";
 import ConferenceSetup from "../ConferenceSetup";
 import { styles } from "./styles";
@@ -21,9 +22,12 @@ const CreateConferenceSection: FC = () => {
     <Box sx={styles.root}>
       <Box sx={styles.header}>
         <Box sx={styles.headerLeft}>
-          <Box sx={styles.backButton} onClick={handleBack}>
-            <BackIcon />
-          </Box>
+          <Button
+            variantType={EButtonType.OUTLINED_ON_DARK}
+            buttonTitle={<BackIcon />}
+            onClick={handleBack}
+            sx={styles.backButton}
+          />
           <Box>
             <Typography sx={styles.newRoomLabel}>{t("newRoom")}</Typography>
             <Typography variant="h1" sx={styles.pageTitle}>{t("createConferenceTitle")}</Typography>

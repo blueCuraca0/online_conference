@@ -76,36 +76,13 @@ export const styles: SxStyles = {
     flexWrap: "wrap",
   },
   startButton: {
-    padding: "11px 24px",
+    padding: "7px 20px",
     borderRadius: "12px",
-    backgroundColor: mainPalette.white,
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "rgba(255,255,255,0.9)",
-    },
-  },
-  startButtonText: {
-    fontSize: "14px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.primary,
+    minWidth: "unset",
   },
   scheduleButton: {
-    padding: "11px 20px",
+    padding: "7px 16px",
     borderRadius: "12px",
-    border: "1.5px solid rgba(255,255,255,0.35)",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "8px",
-    cursor: "pointer",
-    color: mainPalette.white,
-    "&:hover": {
-      backgroundColor: "rgba(255,255,255,0.08)",
-    },
-  },
-  scheduleButtonText: {
-    fontSize: "14px !important",
-    fontWeight: "500 !important",
-    color: mainPalette.white,
+    minWidth: "unset",
   },
 };

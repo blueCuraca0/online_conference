@@ -30,16 +30,9 @@ export const styles: SxStyles = {
   backButton: {
     width: 36,
     height: 36,
+    minWidth: "unset",
     borderRadius: "10px",
-    border: "1.5px solid rgba(255,255,255,0.3)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: mainPalette.white,
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "rgba(255,255,255,0.1)",
-    },
+    p: 0,
   },
   newRoomLabel: {
     fontSize: "12px !important",

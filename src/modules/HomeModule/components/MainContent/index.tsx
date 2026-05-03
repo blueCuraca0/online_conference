@@ -7,6 +7,7 @@ import StartConferenceCard from "../StartConferenceCard";
 import JoinConferenceCard from "../JoinConferenceCard";
 import UpNextSection from "../UpNextSection";
 import { styles } from "./styles";
+import { useConferenceController } from "hooks/useConferenceController";
 
 const SearchIcon: FC = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -17,6 +18,7 @@ const SearchIcon: FC = () => (
 
 const MainContent: FC = () => {
   const { t } = useTranslation();
+  useConferenceController(true);
 
   return (
     <Box sx={styles.root}>

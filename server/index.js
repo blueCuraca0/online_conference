@@ -17,11 +17,8 @@ app.use((req, res, next) => {
 });
 
 const respond = (res, { data, error }) => {
-  if (error) {
-    const status = error.code === 'PGRST116' ? 404 : 400;
-    return res.status(status).json({ error: error.message });
-  }
-  res.json(data);
+  if (error) return res.json({ success: false, data: error.message });
+  res.json({ success: true, data });
 };
 
 // POST /users (sign-up) is unauthenticated — must be before the auth guard
@@ -38,8 +35,51 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/conferences', async (_req, res) => {
-  const result = await supabase.from('conferences').select('*');
+app.get('/conferences', async (req, res) => {
+  const result = await supabase
+    .from('conferences')
+    .select('*, conference_participants!inner(user_id)')
+    .eq('conference_participants.user_id', req.userId);
+
+  respond(res, result);
+});
+
+app.post('/conferences', async (req, res) => {
+  const result = await supabase
+    .from('conferences')
+    .insert({ ...req.body, creator_id: req.userId })
+    .select()
+    .single();
+
+  if (result.data) {
+    await supabase
+      .from('conference_participants')
+      .insert({ conference_id: result.data.id, user_id: req.userId, is_host: true });
+  }
+  respond(res, result);
+});
+
+app.patch('/conferences', async (req, res) => {
+  const result = await supabase
+    .from('conferences')
+    .update(req.body)
+    .eq('id', req.query.id)
+    .eq('creator_id', req.userId)
+    .select()
+    .single();
+
+  respond(res, result);
+});
+
+app.delete('/conferences', async (req, res) => {
+  const result = await supabase
+    .from('conferences')
+    .delete()
+    .eq('id', req.query.id)
+    .eq('creator_id', req.userId)
+    .select()
+    .single();
+    
   respond(res, result);
 });
 

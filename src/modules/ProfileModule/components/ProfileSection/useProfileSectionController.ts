@@ -1,5 +1,4 @@
 import profileApi from "api/profileApi";
-import { supabase } from "lib/supabase";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -30,29 +29,44 @@ export const useProfileSectionController = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await profileApi.getProfile();
-      const mapped = {
-        userId: response.id,
-        displayName: response.name,
-        pronouns: response.pronouns,
-        role: response.role,
-        timezone: response.timezone,
-        bio: response.bio,
-        email: response.email,
-        avatarUrl: response.avatarUrl,
-        createdAt: response.created_at,
-      };
-      setProfile(mapped);
-      reset({
-        displayName: mapped.displayName,
-        pronouns: mapped.pronouns,
-        role: mapped.role,
-        timezone: mapped.timezone,
-        bio: mapped.bio,
-      });
+      const profileResult = await profileApi.getProfile();
+      if (profileResult.success) {
+        const r = profileResult.data;
+        const mapped = {
+          userId: r.id,
+          displayName: r.name,
+          pronouns: r.pronouns,
+          role: r.role,
+          timezone: r.timezone,
+          bio: r.bio,
+          email: r.email,
+          avatarUrl: r.avatarUrl,
+          createdAt: r.created_at,
+        };
+        setProfile(mapped);
+        reset({
+          displayName: mapped.displayName,
+          pronouns: mapped.pronouns,
+          role: mapped.role,
+          timezone: mapped.timezone,
+          bio: mapped.bio,
+        });
+      }
 
-      const users = await profileApi.getUsers();
-      setUsers(users);
+      const usersResult = await profileApi.getUsers();
+      if (usersResult.success) {
+        setUsers(usersResult.data.map((u) => ({
+          userId: u.id,
+          displayName: u.name,
+          pronouns: u.pronouns,
+          role: u.role,
+          timezone: u.timezone,
+          bio: u.bio,
+          email: u.email,
+          avatarUrl: u.avatarUrl,
+          createdAt: u.created_at,
+        })));
+      }
 
       setLoading(false);
     })();
@@ -67,17 +81,20 @@ export const useProfileSectionController = () => {
       timezone: values.timezone,
       bio: values.bio,
     });
-    setProfile({
-      userId: result.id,
-      displayName: result.name,
-      pronouns: result.pronouns,
-      role: result.role,
-      timezone: result.timezone,
-      bio: result.bio,
-      email: result.email,
-      avatarUrl: result.avatarUrl,
-      createdAt: result.created_at,
-    });
+    if (result.success) {
+      const r = result.data;
+      setProfile({
+        userId: r.id,
+        displayName: r.name,
+        pronouns: r.pronouns,
+        role: r.role,
+        timezone: r.timezone,
+        bio: r.bio,
+        email: r.email,
+        avatarUrl: r.avatarUrl,
+        createdAt: r.created_at,
+      });
+    }
   };
 
   const handleDeleteUser = async () => {

@@ -1,11 +1,11 @@
-import { Profile, ProfileResponse } from "types/profile";
+import { Profile } from "types/profile";
 import { create } from "zustand";
 
 interface ProfileState {
   profile: Profile | null;
   setProfile: (profile: Profile | null) => void;
-  users: ProfileResponse[];
-  setUsers: (users: ProfileResponse[]) => void;
+  users: Profile[];
+  setUsers: (users: Profile[]) => void;
 }
 
 export const useProfileStore = create<ProfileState>((set) => ({

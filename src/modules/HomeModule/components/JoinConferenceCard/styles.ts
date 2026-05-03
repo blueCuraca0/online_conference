@@ -64,21 +64,10 @@ export const styles: SxStyles = {
     letterSpacing: "0.02em",
   },
   joinButton: {
-    padding: "13px 24px",
+    padding: "9px 20px",
     borderRadius: "12px",
-    backgroundColor: mainPalette.primary,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#4A5E38",
-    },
-  },
-  joinButtonText: {
-    fontSize: "14px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.white,
+    width: "100%",
+    minWidth: "unset",
   },
   pasteLinkRow: {
     display: "flex",

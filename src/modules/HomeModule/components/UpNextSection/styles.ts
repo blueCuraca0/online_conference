@@ -138,33 +138,10 @@ export const styles: SxStyles = {
     alignItems: "center",
     gap: "8px",
   },
-  joinButton: {
-    padding: "8px 20px",
-    borderRadius: "10px",
-    backgroundColor: mainPalette.primary,
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#4A5E38",
-    },
-  },
-  joinButtonText: {
-    fontSize: "13px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.white,
-  },
   detailsButton: {
-    padding: "8px 20px",
+    padding: "4px 16px",
     borderRadius: "10px",
-    border: `1.5px solid rgba(0,0,0,0.12)`,
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "rgba(0,0,0,0.03)",
-    },
-  },
-  detailsButtonText: {
-    fontSize: "13px !important",
-    fontWeight: "500 !important",
-    color: accentPalette.text,
+    minWidth: "unset",
   },
   moreButton: {
     width: 30,

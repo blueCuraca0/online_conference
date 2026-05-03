@@ -11,6 +11,10 @@ import { basicTheme } from "theme";
 export enum EButtonType {
   PRIMARY,
   SECONDARY,
+  OUTLINED,
+  OUTLINED_ON_DARK,
+  WHITE,
+  GHOST,
 }
 
 export interface ButtonProps extends MuiButtonProps {
@@ -24,19 +28,15 @@ export const Button: FC<ButtonProps> = ({
   ...rest
 }) => {
   const buttonStyle = (variantType: EButtonType): SxProps => {
-    if (variantType === EButtonType.SECONDARY) {
-      return {
-        ...styles.button,
-        ...styles.buttonSecondary,
-        ...rest.sx,
-      } as SxProps;
-    }
-
-    return {
-      ...styles.button,
-      ...styles.buttonPrimary,
-      ...rest.sx,
-    } as SxProps;
+    const variantStyles: Record<EButtonType, SxProps> = {
+      [EButtonType.PRIMARY]: styles.buttonPrimary,
+      [EButtonType.SECONDARY]: styles.buttonSecondary,
+      [EButtonType.OUTLINED]: styles.buttonOutlined,
+      [EButtonType.OUTLINED_ON_DARK]: styles.buttonOutlinedOnDark,
+      [EButtonType.WHITE]: styles.buttonWhite,
+      [EButtonType.GHOST]: styles.buttonGhost,
+    };
+    return { ...styles.button, ...variantStyles[variantType], ...rest.sx } as SxProps;
   };
 
   return (

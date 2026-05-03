@@ -105,20 +105,9 @@ export const styles: SxStyles = {
     color: accentPalette.text,
   },
   copyLinkBtn: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "6px",
-    cursor: "pointer",
-    color: mainPalette.primary,
-    "&:hover": {
-      opacity: 0.75,
-    },
-  },
-  copyLinkText: {
-    fontSize: "13px !important",
-    color: mainPalette.primary,
-    fontWeight: "500 !important",
+    minWidth: "unset",
+    py: "4px",
+    px: "8px",
   },
   inviteInputWrapper: {
     borderRadius: "12px",
@@ -200,30 +189,15 @@ export const styles: SxStyles = {
     justifyContent: "flex-end",
   },
   draftButton: {
-    padding: "13px 24px",
+    py: "9px",
+    px: "20px",
     borderRadius: "14px",
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "rgba(0,0,0,0.04)",
-    },
-  },
-  draftButtonText: {
-    fontSize: "14px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.primary,
+    minWidth: "unset",
   },
   scheduleButton: {
-    padding: "13px 28px",
+    py: "9px",
+    px: "24px",
     borderRadius: "14px",
-    backgroundColor: mainPalette.primary,
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#4A5E38",
-    },
-  },
-  scheduleButtonText: {
-    fontSize: "14px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.white,
+    minWidth: "unset",
   },
 };

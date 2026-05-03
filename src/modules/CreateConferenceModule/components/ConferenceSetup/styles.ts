@@ -101,16 +101,10 @@ export const styles: SxStyles = {
     whiteSpace: "nowrap",
   },
   copyButton: {
-    cursor: "pointer",
     flexShrink: 0,
-    "&:hover": {
-      opacity: 0.7,
-    },
-  },
-  copyButtonText: {
-    fontSize: "13px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.primary,
+    minWidth: "unset",
+    py: "4px",
+    px: "8px",
   },
   devicesCard: {
     backgroundColor: mainPalette.white,

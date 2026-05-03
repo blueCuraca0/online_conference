@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
+import { Button, EButtonType } from "components/Button";
 import { styles } from "./styles";
 
 const PlusIcon: FC = () => (
@@ -42,13 +43,18 @@ const StartConferenceCard: FC = () => {
         <Typography sx={styles.desc}>{t("startConferenceDesc")}</Typography>
       </Box>
       <Box sx={styles.actions}>
-        <Box sx={styles.startButton} onClick={handleStartNow}>
-          <Typography sx={styles.startButtonText}>{t("startNowButton")}</Typography>
-        </Box>
-        <Box sx={styles.scheduleButton} onClick={handleSchedule}>
-          <CalendarSmIcon />
-          <Typography sx={styles.scheduleButtonText}>{t("scheduleButton")}</Typography>
-        </Box>
+        <Button
+          variantType={EButtonType.WHITE}
+          buttonTitle={t("startNowButton")}
+          onClick={handleStartNow}
+          sx={styles.startButton}
+        />
+        <Button
+          variantType={EButtonType.OUTLINED_ON_DARK}
+          buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}><CalendarSmIcon /><Typography sx={{ fontSize: "14px !important", fontWeight: "500 !important", color: "inherit" }}>{t("scheduleButton")}</Typography></Box>}
+          onClick={handleSchedule}
+          sx={styles.scheduleButton}
+        />
       </Box>
     </Box>
   );

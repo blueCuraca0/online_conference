@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
+import { Button, EButtonType } from "components/Button";
 import { styles } from "./styles";
 
 interface Participant {
@@ -141,10 +142,12 @@ const ConferenceForm: FC = () => {
       <Box sx={styles.inviteCard}>
         <Box sx={styles.inviteHeader}>
           <Typography variant="h3" sx={styles.inviteTitle}>{t("invitePeople")}</Typography>
-          <Box sx={styles.copyLinkBtn} onClick={handleCopyInviteLink}>
-            <LinkSmIcon />
-            <Typography sx={styles.copyLinkText}>{t("copyInviteLink")}</Typography>
-          </Box>
+          <Button
+            variantType={EButtonType.GHOST}
+            buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}><LinkSmIcon /><Typography sx={{ fontSize: "13px !important", fontWeight: "500 !important", color: "inherit" }}>{t("copyInviteLink")}</Typography></Box>}
+            onClick={handleCopyInviteLink}
+            sx={styles.copyLinkBtn}
+          />
         </Box>
         <Box sx={styles.inviteInputWrapper}>
           <Box sx={styles.searchIcon}><SearchIcon /></Box>
@@ -172,12 +175,18 @@ const ConferenceForm: FC = () => {
       </Box>
 
       <Box sx={styles.formActions}>
-        <Box sx={styles.draftButton} onClick={handleSaveAsDraft}>
-          <Typography sx={styles.draftButtonText}>{t("saveAsDraft")}</Typography>
-        </Box>
-        <Box sx={styles.scheduleButton} onClick={handleSchedule}>
-          <Typography sx={styles.scheduleButtonText}>{t("scheduleConference")} →</Typography>
-        </Box>
+        <Button
+          variantType={EButtonType.GHOST}
+          buttonTitle={t("saveAsDraft")}
+          onClick={handleSaveAsDraft}
+          sx={styles.draftButton}
+        />
+        <Button
+          variantType={EButtonType.PRIMARY}
+          buttonTitle={`${t("scheduleConference")} →`}
+          onClick={handleSchedule}
+          sx={styles.scheduleButton}
+        />
       </Box>
     </Box>
   );
