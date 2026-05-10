@@ -5,8 +5,13 @@ import { ApiResponse } from "types/api";
 const conferenceApi = {
   joinConference: async (code: string, connectionId: number): Promise<ApiResponse<JoinableConferenceResponse>> => {
     try {
-      console.log("Joining conference with code:", code, "and connectionId:", connectionId);
+      console.log("TEST: Joining conference with code:", code, "and connectionId:", connectionId);
       const response = await api.get(`conferences?code=${code}&connectionId=${connectionId}`);
+
+      if (Array.isArray(response.data)) {
+        console.error("TEST: JOIN RESPONSE SHOULD NOT BE AN ARRAY");
+      }
+
       return response.data;
     } catch (error: unknown) {
       return { success: false, data: error instanceof Error ? error.message : "Unknown error" };

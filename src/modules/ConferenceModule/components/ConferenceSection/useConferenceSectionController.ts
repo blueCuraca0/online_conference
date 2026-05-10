@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Participant } from "./types";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish, useRTCClient } from "agora-rtc-react";
 import { useConferenceController } from "hooks/useConferenceController";
 import { useProfileStore } from "stores/profileStore";
@@ -19,6 +19,9 @@ export const useConferenceSectionController = () => {
   const { currentConference, setCurrentConference, joinConference } = useConferenceController(true);
   const { profile } = useProfileStore();
 
+  const [isConnected, setIsConnected] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [micOn, setMic] = useState(true);
   const [cameraOn, setCamera] = useState(true);
 
@@ -36,17 +39,24 @@ export const useConferenceSectionController = () => {
     }
   }, [profile?.connectionId]);
 
+  const isReady = useMemo(() => 
+    !!currentConference && !!profile?.connectionId && !!channelName, 
+  [currentConference, profile?.connectionId, channelName]);
+
   const result = useJoin({ 
     appid: appId, 
     channel: channelName || "", 
     token: currentConference?.token || "",
     uid: profile?.connectionId || 0,
-  }, !!currentConference && !!profile?.connectionId && !!channelName);
+  }, isReady);
 
   useEffect(() => {
-    console.log({JOIN_RESULT: result})
+    setIsConnected(result.isConnected);
+    setIsLoading(result.isLoading);
+
+    console.log({TEST_JOIN_RESULT: result})
     console.log({ 
-    appid: appId, 
+    TEST_appid: appId, 
     channel: channelName || "", 
     token: currentConference?.token || "",
     uid: profile?.connectionId || 0,
@@ -107,6 +117,8 @@ export const useConferenceSectionController = () => {
     localCameraTrack,
     micOn,
     cameraOn,
+    isLoading,
+    isConnected,
     actions: {
       handleMute,
       handleCamera,

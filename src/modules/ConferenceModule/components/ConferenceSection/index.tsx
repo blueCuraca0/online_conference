@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { SxProps } from "@mui/material";
+import { CircularProgress, SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
 import ConferenceTopBar from "../ConferenceTopBar";
@@ -17,13 +17,23 @@ const ConferenceSectionInner: FC = () => {
     cameraOn,
     channelName,
     actions,
+    isLoading,
+    isConnected,
   } = useConferenceSectionController();
+
+  if (isLoading) {   
+    return (
+      <Box sx={styles.loader}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box sx={styles.root}>
       <Box sx={styles.topBarWrapper as SxProps}>
         <ConferenceTopBar
-          title="Q3 Roadmap — Studio Sync"
+          title={isConnected ? "Connected" : "Not connected"}
           participantCount={5}
           code={channelName ?? "204"}
           recordingTime="24:18"

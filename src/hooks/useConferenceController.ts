@@ -18,7 +18,7 @@ export const useConferenceController = (autofetch?: boolean) => {
   const joinConference = async (code: string, connectionId: number) => {
     const result = await conferenceApi.joinConference(code, connectionId);
 
-    console.log({ request: {code, connectionId}, result })
+    console.log({ type: "TEST", request: {code, connectionId}, result })
 
     if (result.success) {
       setCurrentConference(mapJoinableConference(result.data));

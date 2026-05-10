@@ -10,6 +10,15 @@ export const styles = {
     width: "100%",
     backgroundColor: mainPalette.background,
   },
+  loader: {
+    backgroundColor: mainPalette.background,
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   topBarWrapper: {
     // margin: "16px 16px 0",
   },
