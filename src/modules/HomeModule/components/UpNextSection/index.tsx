@@ -78,6 +78,7 @@ const UpNextSection: FC = () => {
           <Typography variant="h3" sx={styles.title}>{t("upNext")}</Typography>
           <Typography sx={styles.count}>{t("upNextCount")}</Typography>
         </Box>
+
         <Button
           variantType={EButtonType.GHOST}
           buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}><CalendarOpenIcon /><Typography sx={styles.openCalendarText}>{t("openCalendar")}</Typography></Box>}
@@ -93,6 +94,7 @@ const UpNextSection: FC = () => {
               <Typography sx={styles.meetingTime}>{conference.date ? new Date(conference.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—"}</Typography>
               <Typography sx={styles.meetingDay}>{conference.date ? new Date(conference.date).toLocaleDateString() : "—"}</Typography>
             </Box>
+
             <Box sx={styles.metaCol}>
               <Typography sx={styles.meetingTitle}>{conference.name ?? "—"}</Typography>
               <Box sx={styles.metaRow}>
@@ -104,6 +106,7 @@ const UpNextSection: FC = () => {
                 {/* <Typography sx={styles.participantCount}>{conference.participantCount}</Typography> */}
               </Box>
             </Box>
+
             <Box sx={styles.statusCol}>
               {/* timeUntil / isPrimary badge — not available on Conference type */}
               <Box sx={{ ...styles.badge, ...(true ? styles.badgePrimary : {}) } as SxProps}>

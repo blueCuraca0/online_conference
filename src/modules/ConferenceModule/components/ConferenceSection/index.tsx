@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
@@ -57,4 +57,4 @@ const ConferenceSection: FC = () => (
   </AgoraWrapper>
 );
 
-export default ConferenceSection;
+export default memo(ConferenceSection);

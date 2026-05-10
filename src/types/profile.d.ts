@@ -10,6 +10,7 @@ export interface ProfileResponse {
   bio: string;
   avatarUrl: string;
   created_at: string;
+  connection_id: number;
 }
 
 // Internal
@@ -24,5 +25,6 @@ export interface Profile {
   bio: string;
   avatarUrl: string;
   createdAt: string;
+  connectionId: number;
 }
 

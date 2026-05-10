@@ -1,8 +1,18 @@
 import api from "api/axios";
-import { ConferenceResponse, CreateConferenceRequest } from "types/conference";
+import { ConferenceResponse, CreateConferenceRequest, JoinableConferenceResponse } from "types/conference";
 import { ApiResponse } from "types/api";
 
 const conferenceApi = {
+  joinConference: async (code: string, connectionId: number): Promise<ApiResponse<JoinableConferenceResponse>> => {
+    try {
+      console.log("Joining conference with code:", code, "and connectionId:", connectionId);
+      const response = await api.get(`conferences?code=${code}&connectionId=${connectionId}`);
+      return response.data;
+    } catch (error: unknown) {
+      return { success: false, data: error instanceof Error ? error.message : "Unknown error" };
+    }
+  },
+
   getConferences: async (): Promise<ApiResponse<ConferenceResponse[]>> => {
     try {
       const response = await api.get("conferences");

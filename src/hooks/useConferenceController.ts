@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import conferenceApi from "api/conferenceApi";
-import { ConferenceResponse, CreateConferenceRequest, mapConference } from "types/conference";
+import { ConferenceResponse, CreateConferenceRequest, mapConference, mapJoinableConference } from "types/conference";
 import { useConferenceStore } from "stores/conferenceStore";
 
 export const useConferenceController = (autofetch?: boolean) => {
-  const { conferences, setConferences } = useConferenceStore();
+  const { currentConference, conferences, setCurrentConference, setConferences } = useConferenceStore();
 
   useEffect(() => {
     if (!autofetch) return;
@@ -14,6 +14,17 @@ export const useConferenceController = (autofetch?: boolean) => {
       if (result.success) setConferences(result.data.map(mapConference));
     })();
   }, [autofetch, setConferences]);
+
+  const joinConference = async (code: string, connectionId: number) => {
+    const result = await conferenceApi.joinConference(code, connectionId);
+
+    if (result.success) {
+      setCurrentConference(mapJoinableConference(result.data));
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const handleCreateConference = async (fields: CreateConferenceRequest) => {
     const result = await conferenceApi.createConference(fields);
@@ -42,7 +53,10 @@ export const useConferenceController = (autofetch?: boolean) => {
   };
 
   return {
+    currentConference,
     conferences,
+    setCurrentConference,
+    joinConference,
     handleCreateConference,
     handleUpdateConference,
     handleDeleteConference,

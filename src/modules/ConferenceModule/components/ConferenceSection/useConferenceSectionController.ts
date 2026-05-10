@@ -1,7 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Participant } from "./types";
-import { useState } from "react";
-import { useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish } from "agora-rtc-react";
+import { useEffect, useState } from "react";
+import { useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish, useRTCClient } from "agora-rtc-react";
+import { useConferenceController } from "hooks/useConferenceController";
+import { useProfileStore } from "stores/profileStore";
 export const STUB_PARTICIPANTS: Participant[] = [
   { id: "1", name: "Mira Gupta", isHost: true, isSpeaking: true },
   { id: "2", name: "Sasha Khan", isMuted: true },
@@ -10,30 +12,36 @@ export const STUB_PARTICIPANTS: Participant[] = [
   { id: "5", name: "Naomi Kestrel", isMuted: true, isCameraOff: true, initials: "NK" },
 ];
 
-// TODO: use real token generated from backend; 
-// when user opens the page with code, fetch their conferences and find the one with this code
-const TOKEN = 
- "007eJxTYNjatqZas75yD8PJKP+Fu0s1vF7o6M8v/rRTWI1HxNB7wy8FBjPTJCOztFTL5FRzc5O0pOREEwPLtORkU3MzI6PkVCODT87fMxsCGRmiJC6yMDJAIIjPzVCSWlySnJGYl5eaw8AAAAZiIgQ=";
 const appId = process.env.REACT_APP_AGORA_APP_ID || "";
 
-const IS_READY = true;
-
 export const useConferenceSectionController = () => {
-  // TODO: store current conference object
   const { id: channelName } = useParams<{ id: string }>();
-
-  const [token, setToken] = useState(TOKEN);
+  const { currentConference, setCurrentConference, joinConference } = useConferenceController(true);
+  const { profile } = useProfileStore();
 
   const [micOn, setMic] = useState(true);
   const [cameraOn, setCamera] = useState(true);
+
+  const client = useRTCClient();
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (channelName && profile?.connectionId) {
+      joinConference(channelName, profile.connectionId).then((success) => {
+        if (!success) {
+          navigate("/home");
+        }
+      });
+    }
+  }, [profile?.connectionId]);
 
   useJoin({ 
     appid: appId, 
     channel: channelName || "", 
-    token: token ? token : null
-  }, IS_READY);
+    token: currentConference?.token || "",
+    uid: profile?.connectionId || 0,
+  }, !!currentConference && !!profile?.connectionId && !!channelName);
 
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
   const { localCameraTrack } = useLocalCameraTrack(cameraOn);
@@ -72,10 +80,16 @@ export const useConferenceSectionController = () => {
     // TODO: open overflow menu with extra options
   };
 
-  const handleLeave = () => {
-    // TODO: send leave-room event, cleanup media streams
+  const handleLeave = async () => {
+    localCameraTrack?.stop();
+    localCameraTrack?.close();
+    localMicrophoneTrack?.stop();
+    localMicrophoneTrack?.close();
+    await client.leave();
+    setCurrentConference(undefined);
     navigate("/home");
   };
+
 
   return {
     channelName,

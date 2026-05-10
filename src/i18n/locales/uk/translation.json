@@ -48,7 +48,7 @@
   "signInLink": "Увійти",
 
   "otpTitle": "Перевірте пошту",
-  "otpSubtitle": "Ми надіслали 6-значний код на",
+  "otpSubtitle": "Ми надіслали {{digitCount}}-значний код на",
   "otpLabel": "Код підтвердження",
   "otpPlaceholder": "123456",
   "otpVerifyButton": "Підтвердити →",

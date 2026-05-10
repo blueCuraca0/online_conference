@@ -29,6 +29,7 @@ export const useSignInController = () => {
         email: "",
         avatarUrl: "",
         createdAt: "",
+        connectionId: 0,
       })
       setClaims(session?.user ?? null)
     })

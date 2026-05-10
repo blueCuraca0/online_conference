@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useProfileStore } from "stores/profileStore";
+import { mapProfile } from "utils/mapProfile";
 
 interface ProfileFormValues {
   displayName: string;
@@ -31,18 +32,7 @@ export const useProfileSectionController = () => {
     (async () => {
       const profileResult = await profileApi.getProfile();
       if (profileResult.success) {
-        const r = profileResult.data;
-        const mapped = {
-          userId: r.id,
-          displayName: r.name,
-          pronouns: r.pronouns,
-          role: r.role,
-          timezone: r.timezone,
-          bio: r.bio,
-          email: r.email,
-          avatarUrl: r.avatarUrl,
-          createdAt: r.created_at,
-        };
+        const mapped = mapProfile(profileResult.data);
         setProfile(mapped);
         reset({
           displayName: mapped.displayName,
@@ -55,17 +45,7 @@ export const useProfileSectionController = () => {
 
       const usersResult = await profileApi.getUsers();
       if (usersResult.success) {
-        setUsers(usersResult.data.map((u) => ({
-          userId: u.id,
-          displayName: u.name,
-          pronouns: u.pronouns,
-          role: u.role,
-          timezone: u.timezone,
-          bio: u.bio,
-          email: u.email,
-          avatarUrl: u.avatarUrl,
-          createdAt: u.created_at,
-        })));
+        setUsers(usersResult.data.map(mapProfile));
       }
 
       setLoading(false);
@@ -81,20 +61,7 @@ export const useProfileSectionController = () => {
       timezone: values.timezone,
       bio: values.bio,
     });
-    if (result.success) {
-      const r = result.data;
-      setProfile({
-        userId: r.id,
-        displayName: r.name,
-        pronouns: r.pronouns,
-        role: r.role,
-        timezone: r.timezone,
-        bio: r.bio,
-        email: r.email,
-        avatarUrl: r.avatarUrl,
-        createdAt: r.created_at,
-      });
-    }
+    if (result.success) setProfile(mapProfile(result.data));
   };
 
   const handleDeleteUser = async () => {

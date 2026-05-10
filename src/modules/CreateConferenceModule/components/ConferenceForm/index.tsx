@@ -77,10 +77,17 @@ const ConferenceForm: FC = () => {
 
   const handleSchedule = async () => {
     setIsLoading(true);
+
+    const date = getValues("date");
+    const startTime = getValues("startTime");
+    const fullStartDate = date && startTime
+      ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), startTime.getHours(), startTime.getMinutes())
+      : null;
+    
     const code = await handleCreateConference({
       name: getValues("name"),
       agenda: getValues("agenda"),
-      date: getValues("date")?.toISOString() || null,
+      date: fullStartDate?.toISOString() || null,
       duration: getValues("lengthMinutes"),
     });
 

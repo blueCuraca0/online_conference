@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import AgoraRTC, { AgoraRTCProvider } from 'agora-rtc-react';
 
 interface AgoraWrapperProps {
@@ -6,8 +6,8 @@ interface AgoraWrapperProps {
 };
 
 const AgoraWrapperComponent: FC<AgoraWrapperProps> = ({children}) => {
-  const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-  
+  const client = useMemo(() => AgoraRTC.createClient({ mode: "rtc", codec: "vp8" }), []);
+
   return (
     <AgoraRTCProvider client={client}>
       {children}

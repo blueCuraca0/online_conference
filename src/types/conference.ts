@@ -15,6 +15,10 @@ export interface ConferenceResponse extends CreateConferenceRequest {
   code: string | null;
 }
 
+export interface JoinableConferenceResponse extends ConferenceResponse {
+  token: string;
+}
+
 // Internal
 
 export interface Conference {
@@ -24,6 +28,13 @@ export interface Conference {
   agenda: string | null;
   date: string | null;
   creatorId: string;
+  duration: number;
+  endedAt: string | null;
+  code: string | null;
+}
+
+export interface JoinableConference extends Conference {
+  token: string;
 }
 
 export const mapConference = (r: ConferenceResponse): Conference => ({
@@ -33,4 +44,12 @@ export const mapConference = (r: ConferenceResponse): Conference => ({
   agenda: r.agenda,
   date: r.date,
   creatorId: r.creator_id,
+  duration: r.duration,
+  endedAt: r.ended_at,
+  code: r.code,
+});
+
+export const mapJoinableConference = (r: JoinableConferenceResponse): JoinableConference => ({
+  ...mapConference(r),
+  token: r.token,
 });

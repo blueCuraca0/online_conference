@@ -48,7 +48,7 @@
   "signInLink": "Sign in",
 
   "otpTitle": "Check your inbox",
-  "otpSubtitle": "We sent a 6-digit code to",
+  "otpSubtitle": "We sent a {{digitCount}}-digit code to",
   "otpLabel": "Verification code",
   "otpPlaceholder": "123456",
   "otpVerifyButton": "Verify →",

@@ -70,7 +70,7 @@ const SignUpPanel: FC = () => {
   };
 
   const handleSignIn = () => {
-    navigate("/sign-in");
+    navigate("/welcome");
   };
 
   const handleTermsClick = () => {
@@ -129,7 +129,7 @@ const SignUpPanel: FC = () => {
               {t("otpTitle")}
             </Typography>
             <Typography variant="bodyText" color={basicTheme.palette.accentPalette.text}>
-              {t("otpSubtitle")} <strong>{pendingEmail}</strong>
+              {t("otpSubtitle", { digitCount: OTP_LENGTH })} <strong>{pendingEmail}</strong>
             </Typography>
           </Box>
           <Box sx={styles.form}>
