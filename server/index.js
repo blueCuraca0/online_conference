@@ -18,6 +18,6 @@ app.use(auth);
 app.use('/conferences', conferencesRouter);
 app.get('/profile', (_req, res) => res.redirect('/users/profile'));
 
-app.listen(process.env.PORT, '127.0.0.1', () => {
+app.listen(process.env.PORT, () => {
   console.log(`Listening to requests on port ${process.env.PORT}.`);
 });
