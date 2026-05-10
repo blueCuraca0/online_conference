@@ -30,6 +30,15 @@ const profileApi = {
     }
   },
 
+  searchUsers: async (query: string): Promise<ApiResponse<ProfileResponse[]>> => {
+    try {
+      const response = await api.get("users/search", { params: { query } });
+      return response.data;
+    } catch (error: unknown) {
+      return { success: false, data: error instanceof Error ? error.message : "Unknown error" };
+    }
+  },
+
   getUserById: async (id: string): Promise<ApiResponse<ProfileResponse>> => {
     try {
       const response = await api.get("users", { params: { id } });

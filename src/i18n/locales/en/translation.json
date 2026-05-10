@@ -160,5 +160,10 @@
   "profileWhenIJoinRoom": "When I join a room",
   "profileWhenIJoinRoomDesc": "Defaults applied to every conference, unless I change them in the lobby.",
   "profileSaveChanges": "Save changes",
-  "profileDeleteAccount": "Delete account"
+  "profileDeleteAccount": "Delete account",
+
+  "join": "Join",
+  "editConference": "Edit",
+  "cancelConference": "Cancel conference",
+  "declineConference": "Decline"
 }

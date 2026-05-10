@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { SxProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -9,6 +9,10 @@ import { CalendarOpenIcon } from "components/icons/CalendarOpenIcon";
 import { styles } from "./styles";
 import { useConferenceStore } from "stores/conferenceStore";
 import { useNavigate } from "react-router-dom";
+import MeetingActionPopup from "components/MeetingActionPopup";
+import { useConferenceController } from "hooks/useConferenceController";
+import { Conference } from "types/conference";
+import { CONFERENCE_LINK_BASE } from "utils";
 
 // interface Meeting {
 //   time: string;
@@ -56,8 +60,12 @@ import { useNavigate } from "react-router-dom";
 
 const UpNextSection: FC = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { conferences } = useConferenceStore();
+  const { handleDeleteConference, handleDeclineConference } = useConferenceController();
+
+  const [popupAnchor, setPopupAnchor] = useState<HTMLElement | null>(null);
+  const [activeConference, setActiveConference] = useState<Conference | null>(null);
 
   const handleOpenCalendar = () => {
     // TODO: navigate to calendar view
@@ -67,8 +75,36 @@ const UpNextSection: FC = () => {
     navigate(`/conference/${_conferenceId}`);
   };
 
-  const handleDetails = (_meetingTitle: string) => {
-    // TODO: open meeting details panel
+  const handleDetails = (conference: Conference, el: HTMLElement) => {
+    setActiveConference(conference);
+    setPopupAnchor(el);
+  };
+
+  const handlePopupClose = () => {
+    setPopupAnchor(null);
+    setActiveConference(null);
+  };
+
+  const handlePopupJoin = (conference: Conference) => {
+    handleJoin(conference.id);
+  };
+
+  const handlePopupEdit = (_conference: Conference) => {
+    // TODO: open edit conference panel
+  };
+
+  const handlePopupCopyLink = (conference: Conference) => {
+    if (conference.code) {
+      navigator.clipboard.writeText(`${CONFERENCE_LINK_BASE}${conference.code}`);
+    }
+  };
+
+  const handlePopupCancel = async (conference: Conference) => {
+    await handleDeleteConference(conference.id);
+  };
+
+  const handlePopupDecline = async (conference: Conference) => {
+    await handleDeclineConference(conference.id);
   };
 
   return (
@@ -121,7 +157,7 @@ const UpNextSection: FC = () => {
               <Button
                 variantType={EButtonType.OUTLINED}
                 buttonTitle={t("detailsButton")}
-                onClick={() => handleDetails(conference.id)}
+                onClick={(e) => handleDetails(conference, e.currentTarget)}
                 sx={styles.detailsButton}
               />
               <Box sx={styles.moreButton}>
@@ -131,6 +167,17 @@ const UpNextSection: FC = () => {
           </Box>
         ))}
       </Box>
+
+      <MeetingActionPopup
+        conference={activeConference}
+        anchorEl={popupAnchor}
+        onClose={handlePopupClose}
+        onJoin={handlePopupJoin}
+        onEdit={handlePopupEdit}
+        onCopyLink={handlePopupCopyLink}
+        onCancel={handlePopupCancel}
+        onDecline={handlePopupDecline}
+      />
     </Box>
   );
 };

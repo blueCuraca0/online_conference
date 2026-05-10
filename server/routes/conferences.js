@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   if (req.query.code && req.query.connectionId) {
     const { data: conference, error } = await supabase
       .from('conferences')
-      .select('*, conference_participants!inner(user_id)')
+      .select('*, conference_participants!inner(user_id, is_host)')
       .eq('code', req.query.code)
       .eq('conference_participants.user_id', req.userId)
       .single();
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 
   const result = await supabase
     .from('conferences')
-    .select('*, conference_participants!inner(user_id)')
+    .select('*, conference_participants!inner(user_id, is_host)')
     .eq('conference_participants.user_id', req.userId)
     .gte('date', new Date().toISOString());
 
@@ -36,14 +36,26 @@ router.post('/', async (req, res) => {
 
   const result = await supabase
     .from('conferences')
-    .insert({ ...req.body, creator_id: req.userId, code })
+    .insert({ 
+      name: req.body.name, 
+      date: req.body.date, 
+      duration: req.body.duration, 
+      agenda: req.body.agenda, 
+      creator_id: req.userId, 
+      code
+    })
     .select()
     .single();
 
   if (result.data) {
-    await supabase
-      .from('conference_participants')
-      .insert({ conference_id: result.data.id, user_id: req.userId, is_host: true });
+    const { participantIds } = req.body;
+    
+    const rows = [
+      { conference_id: result.data.id, user_id: req.userId, is_host: true },
+      ...(Array.isArray(participantIds) ? participantIds.map((uid) => ({ conference_id: result.data.id, user_id: uid, is_host: false })) : []),
+    ];
+
+    await supabase.from('conference_participants').insert(rows);
   }
 
   respond(res, result);
@@ -67,6 +79,19 @@ router.delete('/', async (req, res) => {
     .delete()
     .eq('id', req.query.id)
     .eq('creator_id', req.userId)
+    .select()
+    .single();
+
+  respond(res, result);
+});
+
+router.delete('/participants', async (req, res) => {
+  const result = await supabase
+    .from('conference_participants')
+    .delete()
+    .eq('conference_id', req.query.conferenceId)
+    .eq('user_id', req.userId)
+    .eq('is_host', false)
     .select()
     .single();
 

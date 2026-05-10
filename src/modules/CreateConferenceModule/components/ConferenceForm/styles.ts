@@ -55,10 +55,44 @@ export const styles: SxStyles = {
     py: "4px",
     px: "8px",
   },
+  searchWrapper: {
+    position: "relative",
+  },
   searchInput: {
     "& .MuiOutlinedInput-input": {
       padding: "11px 14px",
     },
+  },
+  dropdown: {
+    position: "absolute",
+    top: "calc(100% + 4px)",
+    left: 0,
+    right: 0,
+    backgroundColor: mainPalette.white,
+    borderRadius: "12px",
+    boxShadow: "0px 4px 20px rgba(0,0,0,0.12)",
+    zIndex: 10,
+    overflow: "hidden",
+  },
+  dropdownItem: {
+    padding: "10px 14px",
+    cursor: "pointer",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+    "&:hover": {
+      backgroundColor: "#F4F7F0",
+    },
+  },
+  dropdownName: {
+    fontSize: "13px !important",
+    fontWeight: "600 !important",
+    color: accentPalette.text,
+  },
+  dropdownEmail: {
+    fontSize: "12px !important",
+    color: accentPalette.text,
+    opacity: 0.6,
   },
   chips: {
     display: "flex",

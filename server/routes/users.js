@@ -18,6 +18,16 @@ router.get('/profile', async (req, res) => {
   respond(res, result);
 });
 
+router.get('/search', async (req, res) => {
+  const { query } = req.query;
+  if (!query) {
+    return res.json({ success: true, data: [] });
+  }
+  const pattern = `%${query}%`;
+  const result = await supabase.from('users').select('id, name, email').or(`name.ilike.${pattern},email.ilike.${pattern}`).neq('id', req.userId);
+  respond(res, result);
+});
+
 router.get('/', async (req, res) => {
   if (req.query.id) {
     const result = await supabase.from('users').select().eq('id', req.query.id).single();

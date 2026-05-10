@@ -5,6 +5,7 @@ export interface CreateConferenceRequest {
   agenda: string | null;
   date: string | null;
   duration: number;
+  participantIds?: string[];
 }
 
 export interface ConferenceResponse extends CreateConferenceRequest {
@@ -13,6 +14,7 @@ export interface ConferenceResponse extends CreateConferenceRequest {
   creator_id: string;
   ended_at: string | null;
   code: string | null;
+  conference_participants?: { user_id: string; is_host: boolean }[];
 }
 
 export interface JoinableConferenceResponse extends ConferenceResponse {
@@ -31,6 +33,7 @@ export interface Conference {
   duration: number;
   endedAt: string | null;
   code: string | null;
+  isHost: boolean;
 }
 
 export interface JoinableConference extends Conference {
@@ -47,6 +50,7 @@ export const mapConference = (r: ConferenceResponse): Conference => ({
   duration: r.duration,
   endedAt: r.ended_at,
   code: r.code,
+  isHost: r.conference_participants?.[0]?.is_host ?? false,
 });
 
 export const mapJoinableConference = (r: JoinableConferenceResponse): JoinableConference => ({

@@ -48,6 +48,15 @@ const conferenceApi = {
       return { success: false, data: error instanceof Error ? error.message : "Unknown error" };
     }
   },
+
+  declineConference: async (conferenceId: string): Promise<ApiResponse<unknown>> => {
+    try {
+      const response = await api.delete("conferences/participants", { params: { conferenceId } });
+      return response.data;
+    } catch (error: unknown) {
+      return { success: false, data: error instanceof Error ? error.message : "Unknown error" };
+    }
+  },
 };
 
 export default conferenceApi;

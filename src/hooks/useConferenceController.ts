@@ -52,6 +52,12 @@ export const useConferenceController = (autofetch?: boolean) => {
     return result.success;
   };
 
+  const handleDeclineConference = async (id: string) => {
+    const result = await conferenceApi.declineConference(id);
+    if (result.success) setConferences(conferences.filter((c) => c.id !== id));
+    return result.success;
+  };
+
   return {
     currentConference,
     conferences,
@@ -60,5 +66,6 @@ export const useConferenceController = (autofetch?: boolean) => {
     handleCreateConference,
     handleUpdateConference,
     handleDeleteConference,
+    handleDeclineConference,
   };
 };

@@ -160,5 +160,10 @@
   "profileWhenIJoinRoom": "Коли я приєднуюсь до кімнати",
   "profileWhenIJoinRoomDesc": "Стандартні налаштування для кожної конференції, якщо я не змінила їх у лобі.",
   "profileSaveChanges": "Зберегти зміни",
-  "profileDeleteAccount": "Видалити акаунт"
+  "profileDeleteAccount": "Видалити акаунт",
+
+  "join": "Приєднатися",
+  "editConference": "Редагувати",
+  "cancelConference": "Скасувати конференцію",
+  "declineConference": "Відхилити"
 }

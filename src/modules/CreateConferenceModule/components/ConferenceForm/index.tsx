@@ -12,19 +12,22 @@ import { LinkSmIcon } from "components/icons/LinkSmIcon";
 import { styles } from "./styles";
 import { useConferenceController } from "hooks/useConferenceController";
 import CopyLink from "../CopyLink";
+import profileApi from "api/profileApi";
+import { ProfileResponse } from "types/profile";
 
 interface Participant {
+  id?: string;
   initials: string;
   name: string;
   color: string;
 }
 
-const STUB_PARTICIPANTS: Participant[] = [
-  { initials: "MG", name: "Mira Gupta", color: "#7B9C5A" },
-  { initials: "SK", name: "Sasha Khan", color: "#5A9C7B" },
-  { initials: "JR", name: "Jules Reyes", color: "#7B7B5A" },
-  { initials: "NK", name: "Naomi K.", color: "#9C7B5A" },
-];
+// const STUB_PARTICIPANTS: Participant[] = [
+//   { initials: "MG", name: "Mira Gupta", color: "#7B9C5A" },
+//   { initials: "SK", name: "Sasha Khan", color: "#5A9C7B" },
+//   { initials: "JR", name: "Jules Reyes", color: "#7B7B5A" },
+//   { initials: "NK", name: "Naomi K.", color: "#9C7B5A" },
+// ];
 
 interface FormValues {
   name: string;
@@ -46,8 +49,10 @@ const ConferenceForm: FC = () => {
     },
   });
 
-  const [participants, setParticipants] = useState<Participant[]>(STUB_PARTICIPANTS);
+  const [participants, setParticipants] = useState<Participant[]>([]);
   const [inviteQuery, setInviteQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<ProfileResponse[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isContinueDisabled, setContinueIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState<string | undefined>();
@@ -60,14 +65,51 @@ const ConferenceForm: FC = () => {
     setContinueIsDisabled(!values.name || !values.date || !values.startTime);
   }, [values]);
 
+  useEffect(() => {
+    if (!inviteQuery.trim()) {
+      setSearchResults([]);
+      setIsSearchOpen(false);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      const result = await profileApi.searchUsers(inviteQuery.trim());
+      if (result.success) {
+        setSearchResults(result.data);
+        setIsSearchOpen(result.data.length > 0);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [inviteQuery]);
+
   const removeParticipant = (name: string) => {
     setParticipants((prev) => prev.filter((p) => p.name !== name));
   };
 
+  const addParticipantFromSearch = (user: ProfileResponse) => {
+    const initials = user.name
+      .split(" ")
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+    const colors = ["#7B9C5A", "#5A9C7B", "#7B7B5A", "#9C7B5A", "#5A7B9C"];
+    const color = colors[user.name.length % colors.length];
+
+    setParticipants((prev) => {
+      if (prev.some((p) => p.name === user.name)) return prev;
+      return [...prev, { id: user.id, initials, name: user.name, color }];
+    });
+
+    setInviteQuery("");
+    setIsSearchOpen(false);
+    setSearchResults([]);
+  };
+
   const handleInviteKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    // TODO: search users and add them
-    if (e.key === "Enter" && inviteQuery.trim()) {
-      setInviteQuery("");
+    if (e.key === "Escape") {
+      setIsSearchOpen(false);
     }
   };
 
@@ -84,11 +126,14 @@ const ConferenceForm: FC = () => {
       ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), startTime.getHours(), startTime.getMinutes())
       : null;
     
+    const participantIds = participants.filter((p) => p.id).map((p) => p.id as string);
+
     const code = await handleCreateConference({
       name: getValues("name"),
       agenda: getValues("agenda"),
       date: fullStartDate?.toISOString() || null,
       duration: getValues("lengthMinutes"),
+      participantIds,
     });
 
     setIsLoading(false);
@@ -154,14 +199,28 @@ const ConferenceForm: FC = () => {
           />
         </Box>
 
-        <Input
-          value={inviteQuery}
-          onChange={(e) => setInviteQuery(e.target.value)}
-          onKeyDown={handleInviteKeyDown}
-          placeholder={t("addByNameOrEmail")}
-          startAdornment={<SearchSmIcon />}
-          sx={styles.searchInput}
-        />
+        <Box sx={styles.searchWrapper}>
+          <Input
+            value={inviteQuery}
+            onChange={(e) => setInviteQuery(e.target.value)}
+            onKeyDown={handleInviteKeyDown}
+            placeholder={t("addByNameOrEmail")}
+            startAdornment={<SearchSmIcon />}
+            sx={styles.searchInput}
+          />
+          {isSearchOpen && (
+            <Box sx={styles.dropdown}>
+              {searchResults
+                .filter((user) => !participants.some((p) => p.name === user.name))
+                .map((user) => (
+                  <Box key={user.id} sx={styles.dropdownItem} onClick={() => addParticipantFromSearch(user)}>
+                    <Typography sx={styles.dropdownName}>{user.name}</Typography>
+                    <Typography sx={styles.dropdownEmail}>{user.email}</Typography>
+                  </Box>
+                ))}
+            </Box>
+          )}
+        </Box>
 
         <Box sx={styles.chips}>
           {participants.map((p) => (
