@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "lib/supabase";
 
 const api = axios.create({
-  baseURL: `http://localhost:8000`,
+  baseURL: apiBaseUrl,
   headers: {
     "Content-type": "application/json",
   },
