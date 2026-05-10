@@ -45,6 +45,12 @@ export const useConferenceSectionController = () => {
 
   useEffect(() => {
     console.log({JOIN_RESULT: result})
+    console.log({ 
+    appid: appId, 
+    channel: channelName || "", 
+    token: currentConference?.token || "",
+    uid: profile?.connectionId || 0,
+  })
   }, [result])
 
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
