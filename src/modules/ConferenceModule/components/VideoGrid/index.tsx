@@ -22,6 +22,8 @@ const VideoGrid: FC<Props> = ({ localMicrophoneTrack, localCameraTrack, micOn, c
   const widthSx = getVideoWidth(totalCount, rows);
   const visibleRemote = remoteUsers.slice(0, maxRemoteTiles);
 
+  console.log({ remoteUsers });
+
   return (
     <Box sx={[styles.root, widthSx, { gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)` }] as SxProps}>
       {visibleRemote.map((user) => (

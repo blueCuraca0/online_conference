@@ -36,12 +36,16 @@ export const useConferenceSectionController = () => {
     }
   }, [profile?.connectionId]);
 
-  useJoin({ 
+  const result = useJoin({ 
     appid: appId, 
     channel: channelName || "", 
     token: currentConference?.token || "",
     uid: profile?.connectionId || 0,
   }, !!currentConference && !!profile?.connectionId && !!channelName);
+
+  useEffect(() => {
+    console.log({JOIN_RESULT: result})
+  }, [result])
 
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
   const { localCameraTrack } = useLocalCameraTrack(cameraOn);
