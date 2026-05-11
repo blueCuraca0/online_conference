@@ -63,8 +63,11 @@ export const useConferenceSectionController = () => {
     // })
   }, [result])
 
-  const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
-  const { localCameraTrack } = useLocalCameraTrack(cameraOn);
+  const { localMicrophoneTrack } = useLocalMicrophoneTrack(true);
+  const { localCameraTrack } = useLocalCameraTrack(true);
+
+  useEffect(() => { localMicrophoneTrack?.setEnabled(micOn); }, [localMicrophoneTrack, micOn]);
+  useEffect(() => { localCameraTrack?.setEnabled(cameraOn); }, [localCameraTrack, cameraOn]);
 
   usePublish([localMicrophoneTrack, localCameraTrack]);
 
