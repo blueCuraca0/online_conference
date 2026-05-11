@@ -6,13 +6,14 @@ export const styles = {
   root: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "100vh",
+    height: "100vh",
     width: "100%",
+    overflow: "hidden",
     backgroundColor: mainPalette.background,
   },
   loader: {
     backgroundColor: mainPalette.background,
-    minHeight: "100vh",
+    height: "100vh",
     display: "flex",
     flexDirection: "column",
     width: "100%",
@@ -20,11 +21,13 @@ export const styles = {
     alignItems: "center",
   },
   topBarWrapper: {
-    // margin: "16px 16px 0",
+    flexShrink: 0,
   },
   gridWrapper: {
     flex: 1,
+    minHeight: 0,
     display: "flex",
     flexDirection: "column",
+    overflow: "hidden",
   },
 };

@@ -7,16 +7,11 @@ import { Typography } from "ui/Typography";
 import { MicOffIcon } from "components/icons/MicOffIcon";
 import { Participant } from "../ConferenceSection/types";
 import { styles } from "./styles";
-import { LocalUser } from "agora-rtc-react";
 
 interface Props {
   participant: Participant;
   children: React.ReactNode;
   sx?: SxProps;
-  // appId: string;
-  // channel: string;
-  // token: string;
-  // calling: boolean;
 }
 
 const ParticipantTile: FC<Props> = ({ participant, children, sx }) => {

@@ -50,7 +50,7 @@ const VideoGrid: FC<Props> = ({ localMicrophoneTrack, localCameraTrack, micOn, c
         }}
       >
         <LocalUser
-          audioTrack={localMicrophoneTrack}
+          // audioTrack={localMicrophoneTrack}
           cameraOn={cameraOn}
           micOn={micOn}
           videoTrack={localCameraTrack}
