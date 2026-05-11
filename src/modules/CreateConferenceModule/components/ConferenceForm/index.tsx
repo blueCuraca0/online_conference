@@ -1,4 +1,5 @@
 import { FC, useState, KeyboardEvent, useEffect } from "react";
+import { Snackbar, Alert } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 
@@ -14,6 +15,7 @@ import { useConferenceController } from "hooks/useConferenceController";
 import CopyLink from "../CopyLink";
 import profileApi from "api/profileApi";
 import { ProfileResponse } from "types/profile";
+import { useNavigate } from "react-router-dom";
 
 interface Participant {
   id?: string;
@@ -39,6 +41,7 @@ interface FormValues {
 
 const ConferenceForm: FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { register, control, getValues, watch } = useForm<FormValues>({
     defaultValues: {
       name: "",
@@ -56,6 +59,11 @@ const ConferenceForm: FC = () => {
   const [isContinueDisabled, setContinueIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState<string | undefined>();
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: "success" | "error" }>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const { handleCreateConference } = useConferenceController();
 
@@ -141,9 +149,10 @@ const ConferenceForm: FC = () => {
     setTimeout(() => {
       if (code) {
         setCode(code);
-        alert(t("conferenceCreated"));
+        setSnackbar({ open: true, message: t("conferenceCreated"), severity: "success" });
+        setTimeout(() => navigate(-1), 1500);
       } else {
-        alert(t("conferenceCreationFailed"));
+        setSnackbar({ open: true, message: t("conferenceCreationFailed"), severity: "error" });
       }
     }, 500)
   };
@@ -250,6 +259,16 @@ const ConferenceForm: FC = () => {
           loading={isLoading}
         />
       </Box>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert severity={snackbar.severity} onClose={() => setSnackbar((s) => ({ ...s, open: false }))}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

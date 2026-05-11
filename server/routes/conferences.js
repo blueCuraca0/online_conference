@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
 
     if (error ) return respond(res, { data: null, error });
     if (conference === undefined) return respond(res, { data: null, error: "No matching conference found." });
-    console.log({text: "TEST", conference, error});
-    console.log({text: "TEST", code: conference.code, connectionId: req.query.connectionId});
+    // console.log({text: "TEST", conference, error});
+    // console.log({text: "TEST", code: conference.code, connectionId: req.query.connectionId});
 
     const agoraToken = generateAgoraToken(conference.code, req.query.connectionId);
     console.log({ channelName: conference.code, uid: req.query.connectionId, agoraToken });

@@ -40,7 +40,7 @@ const ConferenceSectionInner: FC = () => {
       <Box sx={styles.topBarWrapper as SxProps}>
         <ConferenceTopBar
           title={isConnected ? (currentConference?.name || "Connected") : "Not connected"}
-          participantCount={5}
+          participantCount={(currentConference?.participantCount || 0) + 1}
           code={channelName ?? "204"}
           recordingTime="24:18"
         />

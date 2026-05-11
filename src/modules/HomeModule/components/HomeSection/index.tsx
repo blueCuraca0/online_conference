@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Box } from "ui/Box";
 import MainContent from "../MainContent";
 import { ProfileSection } from "modules/ProfileModule";
+import { AppearanceSection } from "modules/AppearanceModule";
 import { styles } from "./styles";
 import { useHomeSectionController } from "./useHomeSectionController";
 import StubContent from "../StubContent";
@@ -25,6 +26,8 @@ const HomeSection: FC = () => {
         return <MainContent />;
       case "profile":
         return <ProfileSection />;
+      case "appearance":
+        return <AppearanceSection />;
       default:
         return <StubContent section={activeSection} />;
     }
