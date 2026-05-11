@@ -15,20 +15,42 @@ router.get('/', async (req, res) => {
       .eq('conference_participants.user_id', req.userId)
       .single();
 
-    if (error) return respond(res, { data: null, error });
+    if (error ) return respond(res, { data: null, error });
+    if (conference === undefined) return respond(res, { data: null, error: "No matching conference found." });
+    console.log({text: "TEST", conference, error});
+    console.log({text: "TEST", code: conference.code, connectionId: req.query.connectionId});
 
     const agoraToken = generateAgoraToken(conference.code, req.query.connectionId);
     console.log({ channelName: conference.code, uid: req.query.connectionId, agoraToken });
     return respond(res, { data: { ...conference, token: agoraToken }, error: null });
   }
 
-  const result = await supabase
+  const { data, error } = await supabase
     .from('conferences')
     .select('*, conference_participants!inner(user_id, is_host)')
     .eq('conference_participants.user_id', req.userId)
     .gte('date', new Date().toISOString());
 
-  respond(res, result);
+  if (error) return respond(res, { data: null, error });
+
+  const ids = data.map((c) => c.id);
+  const { data: participants } = await supabase
+    .from('conference_participants')
+    .select('conference_id, user_id, users(id, name)')
+    .in('conference_id', ids);
+
+  const participantsMap = (participants || []).reduce((acc, row) => {
+    if (!acc[row.conference_id]) acc[row.conference_id] = [];
+    acc[row.conference_id].push({ userId: row.user_id, name: row.users?.name ?? null });
+    return acc;
+  }, {});
+
+  const enriched = data.map((c) => ({
+    ...c,
+    participants: participantsMap[c.id] ?? [],
+    participant_count: (participantsMap[c.id] ?? []).length,
+  }));
+  respond(res, { data: enriched, error: null });
 });
 
 router.post('/', async (req, res) => {

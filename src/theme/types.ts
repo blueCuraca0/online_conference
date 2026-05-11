@@ -27,6 +27,7 @@ declare module "@mui/material/styles" {
     white?: string;
     black?: string;
     background?: string;
+    backgroundLight?: string;
     primary?: string;
     primaryLight?: string;
     secondary?: string;
@@ -35,6 +36,7 @@ declare module "@mui/material/styles" {
     white: string;
     black: string;
     background: string;
+    backgroundLight: string;
     primary: string;
     primaryLight: string;
     secondary: string;

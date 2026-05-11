@@ -1,4 +1,7 @@
+import { basicTheme } from "theme";
 import { SxStyles } from "types/styles";
+
+const { mainPalette } = basicTheme.palette;
 
 export const styles: SxStyles = {
   root: {
@@ -7,7 +10,7 @@ export const styles: SxStyles = {
     height: "100vh",
     width: "100%",
     overflow: "hidden",
-    backgroundColor: "#F5F0E6",
+    backgroundColor: mainPalette.backgroundLight,
   },
   content: {
     flex: 1,

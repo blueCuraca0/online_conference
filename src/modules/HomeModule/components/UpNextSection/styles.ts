@@ -92,22 +92,14 @@ export const styles: SxStyles = {
     color: accentPalette.text,
     opacity: 0.55,
   },
-  hostAvatar: {
-    width: 20,
-    height: 20,
-    borderRadius: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  hostInitials: {
-    fontSize: "9px !important",
-    fontWeight: "600 !important",
-    color: mainPalette.white,
-  },
   participantCount: {
     fontSize: "12px !important",
     color: "inherit",
+  },
+  joinButton: {
+    padding: "4px 16px",
+    borderRadius: "10px",
+    minWidth: "unset",
   },
   statusCol: {
     minWidth: "80px",

@@ -5,9 +5,12 @@ import { useTranslation } from "react-i18next";
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
+import ProfileAvatar from "components/ProfileAvatar";
+import ParticipantAvatarStack from "components/ParticipantAvatarStack";
 import { CalendarOpenIcon } from "components/icons/CalendarOpenIcon";
 import { styles } from "./styles";
 import { useConferenceStore } from "stores/conferenceStore";
+import { useProfileStore } from "stores/profileStore";
 import { useNavigate } from "react-router-dom";
 import MeetingActionPopup from "components/MeetingActionPopup";
 import { useConferenceController } from "hooks/useConferenceController";
@@ -62,17 +65,14 @@ const UpNextSection: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { conferences } = useConferenceStore();
+  const { users } = useProfileStore();
   const { handleDeleteConference, handleDeclineConference } = useConferenceController();
 
   const [popupAnchor, setPopupAnchor] = useState<HTMLElement | null>(null);
   const [activeConference, setActiveConference] = useState<Conference | null>(null);
 
-  const handleOpenCalendar = () => {
-    // TODO: navigate to calendar view
-  };
-
-  const handleJoin = (_conferenceId: string) => {
-    navigate(`/conference/${_conferenceId}`);
+  const handleJoin = (code: string | null) => {
+    if (code) navigate(`/conference/${code}`);
   };
 
   const handleDetails = (conference: Conference, el: HTMLElement) => {
@@ -86,7 +86,7 @@ const UpNextSection: FC = () => {
   };
 
   const handlePopupJoin = (conference: Conference) => {
-    handleJoin(conference.id);
+    if (conference.code) handleJoin(conference.code);
   };
 
   const handlePopupEdit = (_conference: Conference) => {
@@ -95,7 +95,7 @@ const UpNextSection: FC = () => {
 
   const handlePopupCopyLink = (conference: Conference) => {
     if (conference.code) {
-      navigator.clipboard.writeText(`${CONFERENCE_LINK_BASE}${conference.code}`);
+      navigator.clipboard.writeText(conference.code);
     }
   };
 
@@ -112,20 +112,22 @@ const UpNextSection: FC = () => {
       <Box sx={styles.header}>
         <Box sx={styles.headerLeft}>
           <Typography variant="h3" sx={styles.title}>{t("upNext")}</Typography>
-          <Typography sx={styles.count}>{t("upNextCount")}</Typography>
+          <Typography sx={styles.count}>{t("upNextCount", { count: conferences.length })}</Typography>
         </Box>
 
-        <Button
+        {/* <Button
           variantType={EButtonType.GHOST}
           buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}><CalendarOpenIcon /><Typography sx={styles.openCalendarText}>{t("openCalendar")}</Typography></Box>}
           onClick={handleOpenCalendar}
           sx={{ py: "6px", px: "10px", minWidth: "unset", opacity: 0.6, "&:hover": { opacity: 1 } }}
-        />
+        /> */}
       </Box>
 
       <Box sx={styles.meetingList}>
-        {conferences.map((conference) => (
+        {conferences.map((conference, idx) => (
           <Box key={conference.id} sx={styles.meetingRow}>
+            <ProfileAvatar name={users.find((u) => u.userId === conference.creatorId)?.displayName || ""} size={40} />
+
             <Box sx={styles.timeCol}>
               <Typography sx={styles.meetingTime}>{conference.date ? new Date(conference.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—"}</Typography>
               <Typography sx={styles.meetingDay}>{conference.date ? new Date(conference.date).toLocaleDateString() : "—"}</Typography>
@@ -133,36 +135,28 @@ const UpNextSection: FC = () => {
 
             <Box sx={styles.metaCol}>
               <Typography sx={styles.meetingTitle}>{conference.name ?? "—"}</Typography>
+              
               <Box sx={styles.metaRow}>
-                {/* hostAvatar — not available on Conference type */}
-                {/* <Box sx={{ ...styles.hostAvatar, backgroundColor: conference.hostColor } as SxProps}>
-                  <Typography sx={styles.hostInitials}>{conference.hostInitials}</Typography>
-                </Box> */}
-                {/* <PeopleSmIcon /> */}
-                {/* <Typography sx={styles.participantCount}>{conference.participantCount}</Typography> */}
-              </Box>
-            </Box>
-
-            <Box sx={styles.statusCol}>
-              {/* timeUntil / isPrimary badge — not available on Conference type */}
-              <Box sx={{ ...styles.badge, ...(true ? styles.badgePrimary : {}) } as SxProps}>
-                <Typography sx={{ ...styles.badgeText, ...(true ? styles.badgeTextPrimary : {}) } as SxProps}>
-                  {conference.createdAt} {/* TODO: timeUntil or duration */}
-                </Typography>
+                <Typography sx={styles.meetingTitle}>{t("total", { count: conference.participantCount })}</Typography>
+                <ParticipantAvatarStack participants={conference.participants} />
               </Box>
             </Box>
 
             <Box sx={styles.actionCol}>
-              {/* isPrimary join/details split — not available on Conference type; show details for all */}
+              {idx === 0 && (
+                <Button
+                  variantType={EButtonType.PRIMARY}
+                  buttonTitle={t("joinMeetingButton")}
+                  onClick={() => handleJoin(conference.code)}
+                  sx={styles.joinButton}
+                />
+              )}
               <Button
                 variantType={EButtonType.OUTLINED}
                 buttonTitle={t("detailsButton")}
                 onClick={(e) => handleDetails(conference, e.currentTarget)}
                 sx={styles.detailsButton}
               />
-              <Box sx={styles.moreButton}>
-                <Typography sx={styles.moreButtonText}>···</Typography>
-              </Box>
             </Box>
           </Box>
         ))}

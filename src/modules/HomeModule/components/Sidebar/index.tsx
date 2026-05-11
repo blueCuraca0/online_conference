@@ -70,7 +70,8 @@ const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
           <Box sx={styles.navItemIcon}><ConferencesIcon /></Box>
           <Typography sx={navTextSx("conferences")}>{t("navConferences")}</Typography>
         </Box>
-        <Box sx={styles.subNav}>
+
+        {/* <Box sx={styles.subNav}>
           <Box sx={subNavItemSx("createNew")} onClick={() => onSectionChange("createNew")}>
             <Box sx={styles.subNavIcon}><PlusSmIcon /></Box>
             <Typography sx={subNavTextSx("createNew")}>{t("navCreateNew")}</Typography>
@@ -83,7 +84,7 @@ const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
             <Box sx={styles.subNavIcon}><CalendarIcon /></Box>
             <Typography sx={subNavTextSx("scheduled")}>{t("navScheduled")}</Typography>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box sx={styles.settingsSection}>

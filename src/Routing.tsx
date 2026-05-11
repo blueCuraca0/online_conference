@@ -9,6 +9,7 @@ const WelcomePage = lazy(() => import("pages/WelcomePage"));
 const SignUpPage = lazy(() => import("pages/SignUpPage"));
 const CreateConferencePage = lazy(() => import("pages/CreateConferencePage"));
 const ConferencePage = lazy(() => import("pages/ConferencePage"));
+const UserProfilePage = lazy(() => import("pages/UserProfilePage"));
 
 const Routing = () => {
   return (
@@ -19,6 +20,7 @@ const Routing = () => {
       <Route path={`/sign-up`} element={<LazyLoadPage children={<SignUpPage />} />} />
       <Route path={`/conference/create`} element={<LazyLoadPage children={<CreateConferencePage />} />} />
       <Route path={`/conference/:id`} element={<LazyLoadPage children={<ConferencePage />} />} />
+      <Route path={`/user/:userId`} element={<LazyLoadPage children={<UserProfilePage />} />} />
       <Route path={`*`} element={<LazyLoadPage children={<ErrorPage />} />} />
     </Routes>
   );

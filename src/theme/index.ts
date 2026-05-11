@@ -17,6 +17,7 @@ export const basicTheme = createTheme({
       white: "#FFF",
       black: "#000",
       background: "#DCCCAC",
+      backgroundLight: "#F5F0E6",
       primary: "#546B41",
       primaryLight: "#99AD7A",
       secondary: "#FFF8EC",

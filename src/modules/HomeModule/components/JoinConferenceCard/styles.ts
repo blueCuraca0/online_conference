@@ -70,7 +70,6 @@ export const styles: SxStyles = {
     minWidth: "unset",
   },
   pasteLinkRow: {
-    background: "pink",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",

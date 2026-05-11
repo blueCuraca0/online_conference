@@ -80,10 +80,10 @@ const JoinConferenceCard: FC = () => {
         sx={styles.joinButton}
       />
 
-      <Box sx={styles.pasteLinkRow} onClick={handlePasteLink}>
+      {/* <Box sx={styles.pasteLinkRow} onClick={handlePasteLink}>
         <Typography sx={styles.pasteLinkPrefix}>{t("or")}&nbsp;</Typography>
         <Typography sx={styles.pasteLinkText}>{t("pasteLinkInstead")}</Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

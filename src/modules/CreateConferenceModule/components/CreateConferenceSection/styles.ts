@@ -9,7 +9,7 @@ export const styles: SxStyles = {
     flexDirection: "column",
     minHeight: "100vh",
     width: "100%",
-    backgroundColor: "#F5F0E6",
+    backgroundColor: mainPalette.backgroundLight,
   },
   header: {
     backgroundColor: mainPalette.primary,

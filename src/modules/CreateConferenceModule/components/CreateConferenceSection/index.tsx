@@ -28,7 +28,8 @@ const CreateConferenceSection: FC = () => {
             <Typography variant="h1" sx={styles.pageTitle}>{t("createConferenceTitle")}</Typography>
           </Box>
         </Box>
-        <Box sx={styles.modeTabs}>
+
+        {/* <Box sx={styles.modeTabs}>
           {MODES.map(({ key, label }) => (
             <Box
               key={key}
@@ -40,7 +41,7 @@ const CreateConferenceSection: FC = () => {
               </Typography>
             </Box>
           ))}
-        </Box>
+        </Box> */}
       </Box>
 
       <Box sx={styles.body}>

@@ -73,18 +73,18 @@ export const styles: SxStyles = {
     mt: "2px",
     pl: "12px",
   },
-  subNavItem: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "10px",
-    padding: "7px 12px",
-    borderRadius: "8px",
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#F3F5F0",
-    },
-  },
+  // subNavItem: {
+  //   display: "flex",
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   gap: "10px",
+  //   padding: "7px 12px",
+  //   borderRadius: "8px",
+  //   cursor: "pointer",
+  //   "&:hover": {
+  //     backgroundColor: "#F3F5F0",
+  //   },
+  // },
   subNavIcon: {
     color: accentPalette.text,
     opacity: 0.6,

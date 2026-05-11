@@ -11,6 +11,7 @@ import { styles } from "./styles";
 import { useConferenceController } from "hooks/useConferenceController";
 import { useProfileStore } from "stores/profileStore";
 import { getToday } from "helpers";
+import ProfileAvatar from "components/ProfileAvatar";
 
 const today = getToday();
 
@@ -32,17 +33,15 @@ const MainContent: FC = () => {
         </Box>
 
         <Box sx={styles.headerRight}>
-          <Box sx={styles.searchBox}>
+          {/* <Box sx={styles.searchBox}>
             <SearchIcon />
             <Typography sx={styles.searchText}>{t("searchRoomsPlaceholder")}</Typography>
             <Box sx={styles.searchKbd}>
               <Typography sx={styles.searchKbdText}>⌘K</Typography>
             </Box>
-          </Box>
+          </Box> */}
 
-          <Box sx={styles.avatar}>
-            <Typography sx={styles.avatarText}>AM</Typography>
-          </Box>
+          <ProfileAvatar size={40} name={profile?.displayName} />
         </Box>
       </Box>
 

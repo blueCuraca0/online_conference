@@ -40,7 +40,6 @@ export const styles: SxStyles = {
     gap: "16px",
   },
   inviteHeader: {
-    background: "pink",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

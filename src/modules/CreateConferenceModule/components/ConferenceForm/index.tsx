@@ -113,9 +113,9 @@ const ConferenceForm: FC = () => {
     }
   };
 
-  const handleCopyInviteLink = () => {
-    // TODO: copy invite link to clipboard
-  };
+  // const handleCopyInviteLink = () => {
+  //   navigator.clipboard.writeText(link);
+  // };
 
   const handleSchedule = async () => {
     setIsLoading(true);
@@ -191,12 +191,12 @@ const ConferenceForm: FC = () => {
         <Box sx={styles.inviteHeader}>
           <Typography variant="h3" sx={styles.inviteTitle}>{t("invitePeople")}</Typography>
           
-          <Button
+          {/* <Button
             variantType={EButtonType.GHOST}
-            buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}><LinkSmIcon /><Typography sx={{ fontSize: "13px !important", fontWeight: "500 !important", color: "inherit" }}>{t("copyInviteLink")}</Typography></Box>}
+            buttonTitle={<Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}><LinkSmIcon /><Typography sx={{ fontSize: "13px !important", fontWeight: "500 !important", color: "inherit" }}>{t("copyInviteCode")}</Typography></Box>}
             onClick={handleCopyInviteLink}
             sx={styles.copyLinkBtn}
-          />
+          /> */}
         </Box>
 
         <Box sx={styles.searchWrapper}>

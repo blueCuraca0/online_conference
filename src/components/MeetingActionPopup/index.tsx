@@ -48,7 +48,7 @@ const MeetingActionPopup: FC<MeetingActionPopupProps> = ({
         ...(conference.isHost
           ? [{ label: t("editConference"), onClick: () => handleAction(onEdit) }]
           : []),
-        { label: t("copyInviteLink"), onClick: () => handleAction(onCopyLink) },
+        { label: t("copyInviteCode"), onClick: () => handleAction(onCopyLink) },
         conference.isHost
           ? { label: t("cancelConference"), onClick: () => handleAction(onCancel), destructive: true }
           : { label: t("declineConference"), onClick: () => handleAction(onDecline), destructive: true },

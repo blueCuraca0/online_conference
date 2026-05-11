@@ -78,7 +78,7 @@
   "or": "or",
   "pasteLinkInstead": "paste a link instead",
   "upNext": "Up next",
-  "upNextCount": "4 on your calendar",
+  "upNextCount": "{{count}} on your calendar",
   "openCalendar": "Open calendar",
   "joinMeetingButton": "Join",
   "detailsButton": "Details",
@@ -95,6 +95,7 @@
   "navShortcuts": "Shortcuts",
   "navPlanBilling": "Plan & billing",
   "logOut": "Log out",
+  "total": "Total: {{count}}",
 
   "newRoom": "New room",
   "createConferenceTitle": "Create a conference",
@@ -108,7 +109,7 @@
   "conferenceLength": "Length",
   "conferenceAgenda": "Agenda",
   "invitePeople": "Invite people",
-  "copyInviteLink": "Copy invite link",
+  "copyInviteCode": "Copy invite code",
   "addByNameOrEmail": "Add by name or email...",
   "saveAsDraft": "Save as draft",
   "scheduleConference": "Schedule conference",
@@ -161,9 +162,11 @@
   "profileWhenIJoinRoomDesc": "Defaults applied to every conference, unless I change them in the lobby.",
   "profileSaveChanges": "Save changes",
   "profileDeleteAccount": "Delete account",
+  "userProfileTitle": "User Profile",
 
   "join": "Join",
   "editConference": "Edit",
   "cancelConference": "Cancel conference",
-  "declineConference": "Decline"
+  "declineConference": "Decline",
+  "userNotFound": "User not found"
 }

@@ -71,7 +71,6 @@ export const styles: SxStyles = {
     color: "rgba(255,255,255,0.7)",
   },
   searchText: {
-    background: "pink",
     fontSize: "13px !important",
     color: "rgba(255,255,255,0.65)",
   },
@@ -84,16 +83,6 @@ export const styles: SxStyles = {
     fontSize: "11px !important",
     color: "rgba(255,255,255,0.7)",
     fontFamily: "monospace",
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    backgroundColor: accentPalette.text,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
   },
   avatarText: {
     fontSize: "13px !important",

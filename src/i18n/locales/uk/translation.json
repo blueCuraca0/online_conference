@@ -78,7 +78,7 @@
   "or": "або",
   "pasteLinkInstead": "вставте посилання",
   "upNext": "Наступні",
-  "upNextCount": "4 у вашому календарі",
+  "upNextCount": "{{count}} у вашому календарі",
   "openCalendar": "Відкрити календар",
   "joinMeetingButton": "Приєднатися",
   "detailsButton": "Деталі",
@@ -95,6 +95,7 @@
   "navShortcuts": "Гарячі клавіші",
   "navPlanBilling": "План та оплата",
   "logOut": "Вийти",
+  "total": "Всього: {{count}}",
 
   "newRoom": "Нова кімната",
   "createConferenceTitle": "Створити конференцію",
@@ -108,7 +109,7 @@
   "conferenceLength": "Тривалість",
   "conferenceAgenda": "Порядок денний",
   "invitePeople": "Запросити людей",
-  "copyInviteLink": "Скопіювати посилання",
+  "copyInviteCode": "Скопіювати код",
   "addByNameOrEmail": "Додати за ім'ям або email...",
   "saveAsDraft": "Зберегти як чернетку",
   "scheduleConference": "Запланувати конференцію",
@@ -161,9 +162,11 @@
   "profileWhenIJoinRoomDesc": "Стандартні налаштування для кожної конференції, якщо я не змінила їх у лобі.",
   "profileSaveChanges": "Зберегти зміни",
   "profileDeleteAccount": "Видалити акаунт",
+  "userProfileTitle": "Профіль користувача",
 
   "join": "Приєднатися",
   "editConference": "Редагувати",
   "cancelConference": "Скасувати конференцію",
-  "declineConference": "Відхилити"
+  "declineConference": "Відхилити",
+  "userNotFound": "Користувача не знайдено"
 }
