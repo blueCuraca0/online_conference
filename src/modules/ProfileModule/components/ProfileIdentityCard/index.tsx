@@ -34,10 +34,10 @@ const ProfileIdentityCard: FC<Props> = ({ displayName, email, onAvatarEdit, onVi
         <Box sx={styles.profileInfo as SxProps}>
           <Typography sx={styles.profileName}>{displayName}</Typography>
           <Typography sx={styles.profileMeta as SxProps}>{email}</Typography>
-          <Box sx={styles.badges as SxProps}>
+          {/* <Box sx={styles.badges as SxProps}>
             <Box component="span" sx={styles.badge as SxProps}>{t("profileProPlan")}</Box>
             <Box component="span" sx={styles.badge as SxProps}>{t("badgeHost")}</Box>
-          </Box>
+          </Box> */}
         </Box>
 
         <Box component="button" sx={styles.viewCardBtn as SxProps} onClick={onViewPublicCard}>

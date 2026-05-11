@@ -17,6 +17,7 @@ import { LockIcon } from "components/icons/LockIcon";
 import { ShortcutsIcon } from "components/icons/ShortcutsIcon";
 import { BillingIcon } from "components/icons/BillingIcon";
 import { LogOutIcon } from "components/icons/LogOutIcon";
+import { basicTheme } from "theme";
 import { styles } from "./styles";
 import { ActiveSection } from "../HomeSection/types";
 import { supabase } from "lib/supabase";
@@ -24,9 +25,10 @@ import { supabase } from "lib/supabase";
 interface SidebarProps {
   activeSection: ActiveSection;
   onSectionChange: (section: ActiveSection) => void;
+  open?: boolean;
 }
 
-const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
+const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange, open = false }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -56,8 +58,21 @@ const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
   const settingsTextSx = (section: ActiveSection) =>
     ({ ...styles.settingsText, ...(isActive(section) ? styles.settingsTextActive : {}) }) as SxProps;
 
+  const rootSx = {
+    ...styles.root,
+    [basicTheme.breakpoints.down("tablet")]: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      zIndex: 1300,
+      transform: open ? "translateX(0)" : "translateX(-100%)",
+      transition: "transform 0.25s ease",
+      boxShadow: open ? "4px 0 24px rgba(0,0,0,0.15)" : "none",
+    },
+  };
+
   return (
-    <Box sx={styles.root}>
+    <Box sx={rootSx}>
       <Box sx={styles.logoRow} onClick={() => onSectionChange("conferences")}>
         <Box sx={styles.logoIcon}>
           <Typography variant="h3" sx={styles.logoLetter}>C</Typography>

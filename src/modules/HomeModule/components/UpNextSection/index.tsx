@@ -124,42 +124,59 @@ const UpNextSection: FC = () => {
       </Box>
 
       <Box sx={styles.meetingList}>
-        {conferences.map((conference, idx) => (
-          <Box key={conference.id} sx={styles.meetingRow}>
-            <ProfileAvatar name={users.find((u) => u.userId === conference.creatorId)?.displayName || ""} size={40} />
+        {conferences.map((conference, idx) => {
+          const creatorName = users.find((u) => u.userId === conference.creatorId)?.displayName || "";
+          const time = conference.date ? new Date(conference.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—";
+          const day = conference.date ? new Date(conference.date).toLocaleDateString() : "—";
 
-            <Box sx={styles.timeCol}>
-              <Typography sx={styles.meetingTime}>{conference.date ? new Date(conference.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—"}</Typography>
-              <Typography sx={styles.meetingDay}>{conference.date ? new Date(conference.date).toLocaleDateString() : "—"}</Typography>
-            </Box>
+          return (
+            <Box key={conference.id} sx={styles.meetingRow}>
+              {/* Mobile: avatar + time in one row at top */}
+              <Box sx={styles.meetingRowTop}>
+                <ProfileAvatar name={creatorName} size={36} />
+                <Box sx={styles.timeCol}>
+                  <Typography sx={styles.meetingTime}>{time}</Typography>
+                  <Typography sx={styles.meetingDay}>{day}</Typography>
+                </Box>
+              </Box>
 
-            <Box sx={styles.metaCol}>
-              <Typography sx={styles.meetingTitle}>{conference.name ?? "—"}</Typography>
-              
-              <Box sx={styles.metaRow}>
-                <Typography sx={styles.meetingTitle}>{t("total", { count: conference.participantCount })}</Typography>
-                <ParticipantAvatarStack participants={conference.participants} />
+              {/* Desktop: standalone avatar + time */}
+              <Box sx={styles.avatarDesktop}>
+                <ProfileAvatar name={creatorName} size={40} />
+              </Box>
+
+              <Box sx={styles.timeColDesktop}>
+                <Typography sx={styles.meetingTime}>{time}</Typography>
+                <Typography sx={styles.meetingDay}>{day}</Typography>
+              </Box>
+
+              <Box sx={styles.metaCol}>
+                <Typography sx={styles.meetingTitle}>{conference.name ?? "—"}</Typography>
+                <Box sx={styles.metaRow}>
+                  <Typography sx={styles.meetingTitle}>{t("total", { count: conference.participantCount })}</Typography>
+                  <ParticipantAvatarStack participants={conference.participants} />
+                </Box>
+              </Box>
+
+              <Box sx={styles.actionCol}>
+                {idx === 0 && (
+                  <Button
+                    variantType={EButtonType.PRIMARY}
+                    buttonTitle={t("joinMeetingButton")}
+                    onClick={() => handleJoin(conference.code)}
+                    sx={styles.joinButton}
+                  />
+                )}
+                <Button
+                  variantType={EButtonType.OUTLINED}
+                  buttonTitle={t("detailsButton")}
+                  onClick={(e) => handleDetails(conference, e.currentTarget)}
+                  sx={styles.detailsButton}
+                />
               </Box>
             </Box>
-
-            <Box sx={styles.actionCol}>
-              {idx === 0 && (
-                <Button
-                  variantType={EButtonType.PRIMARY}
-                  buttonTitle={t("joinMeetingButton")}
-                  onClick={() => handleJoin(conference.code)}
-                  sx={styles.joinButton}
-                />
-              )}
-              <Button
-                variantType={EButtonType.OUTLINED}
-                buttonTitle={t("detailsButton")}
-                onClick={(e) => handleDetails(conference, e.currentTarget)}
-                sx={styles.detailsButton}
-              />
-            </Box>
-          </Box>
-        ))}
+          );
+        })}
       </Box>
 
       <MeetingActionPopup

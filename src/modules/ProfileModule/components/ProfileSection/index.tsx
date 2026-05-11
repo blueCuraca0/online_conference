@@ -52,7 +52,7 @@ const ProfileSection: FC = () => {
         {t("profileDeleteAccount")}
       </Box>
 
-      <Box
+      {/* <Box
         component="button"
         sx={styles.debugBtn as SxProps}
         onClick={async () => {
@@ -63,7 +63,7 @@ const ProfileSection: FC = () => {
         }}
       >
         [debug] find user by id
-      </Box>
+      </Box> */}
     </Box>
   );
 };

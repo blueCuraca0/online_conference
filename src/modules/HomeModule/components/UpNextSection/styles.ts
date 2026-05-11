@@ -53,15 +53,26 @@ export const styles: SxStyles = {
   },
   meetingRow: {
     display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "16px",
+    flexDirection: { mobile: "column", tablet: "row" },
+    alignItems: { mobile: "flex-start", tablet: "center" },
+    gap: { mobile: "10px", tablet: "16px" },
     backgroundColor: mainPalette.white,
     borderRadius: "14px",
-    padding: "14px 20px",
+    padding: { mobile: "14px 16px", tablet: "14px 20px" },
+  },
+  meetingRowTop: {
+    display: { mobile: "flex", tablet: "none" },
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "12px",
+    width: "100%",
   },
   timeCol: {
     minWidth: "80px",
+  },
+  timeColDesktop: {
+    minWidth: "80px",
+    display: { mobile: "none", tablet: "block" },
   },
   meetingTime: {
     fontSize: "14px !important",
@@ -129,6 +140,10 @@ export const styles: SxStyles = {
     flexDirection: "row",
     alignItems: "center",
     gap: "8px",
+    width: { mobile: "100%", tablet: "auto" },
+  },
+  avatarDesktop: {
+    display: { mobile: "none", tablet: "flex" },
   },
   detailsButton: {
     padding: "4px 16px",

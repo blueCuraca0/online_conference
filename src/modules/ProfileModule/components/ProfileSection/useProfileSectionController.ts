@@ -2,6 +2,7 @@ import profileApi from "api/profileApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useProfileStore } from "stores/profileStore";
 import { mapProfile } from "utils/mapProfile";
 
@@ -17,6 +18,7 @@ export const useProfileSectionController = () => {
   const { t } = useTranslation();
   const { profile, setProfile, setUsers } = useProfileStore();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const { register, reset, getValues } = useForm<ProfileFormValues>({
     defaultValues: {
@@ -74,7 +76,7 @@ export const useProfileSectionController = () => {
   };
 
   const handleViewPublicCard = () => {
-    // TODO: open public profile card modal
+    navigate(`/user/${profile?.userId}`);
   };
 
   const handleAvatarEdit = () => {

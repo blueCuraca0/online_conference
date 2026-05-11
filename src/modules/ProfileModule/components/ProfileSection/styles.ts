@@ -10,13 +10,13 @@ export const styles: SxStyles = {
     display: "flex",
     flexDirection: "column",
     gap: "16px",
-    padding: "0 24px 40px",
+    padding: { mobile: "0 0 32px", tablet: "0 24px 40px" },
     width: "100%",
   },
   heroBanner: {
-    borderRadius: "16px",
+    borderRadius: { mobile: "0 0 16px 16px", tablet: "16px" },
     backgroundColor: mainPalette.primary,
-    padding: "28px 32px 32px",
+    padding: { mobile: "20px 20px 24px", tablet: "28px 32px 32px" },
     display: "flex",
     flexDirection: "column",
     gap: "8px",
@@ -49,14 +49,16 @@ export const styles: SxStyles = {
   card: {
     backgroundColor: mainPalette.white,
     borderRadius: "16px",
-    padding: "24px 28px",
+    padding: { mobile: "20px 16px", tablet: "24px 28px" },
     display: "flex",
     flexDirection: "column",
     gap: "20px",
+    mx: { mobile: "12px", tablet: 0 },
   },
   profileCardRow: {
     display: "flex",
-    alignItems: "center",
+    flexDirection: { mobile: "column", tablet: "row" },
+    alignItems: { mobile: "flex-start", tablet: "center" },
     gap: "20px",
   },
   avatarWrap: {
@@ -130,7 +132,7 @@ export const styles: SxStyles = {
     py: "3px",
   },
   viewCardBtn: {
-    ml: "auto",
+    ml: { mobile: 0, tablet: "auto" },
     padding: "10px 20px",
     borderRadius: "12px",
     backgroundColor: "rgba(84,107,65,0.1)",
@@ -165,7 +167,7 @@ export const styles: SxStyles = {
   },
   fieldsGrid: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: { mobile: "1fr", tablet: "1fr 1fr" },
     gap: "14px",
   },
   bioHint: {
