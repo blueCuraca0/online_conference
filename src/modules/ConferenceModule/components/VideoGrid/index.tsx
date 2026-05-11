@@ -36,7 +36,7 @@ const VideoGrid: FC<Props> = ({ localMicrophoneTrack, localCameraTrack, micOn, c
             isCameraOff: !user.hasVideo,
           }}
         >
-          <RemoteUser user={user} style={{ width: "100%", height: "100%" }} />
+          <RemoteUser user={user} playAudio={user.hasAudio} style={{ width: "100%", height: "100%" }} />
         </ParticipantTile>
       ))}
 

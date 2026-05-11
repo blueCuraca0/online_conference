@@ -54,13 +54,13 @@ export const useConferenceSectionController = () => {
     setIsConnected(result.isConnected);
     setIsLoading(result.isLoading);
 
-    console.log({TEST_JOIN_RESULT: result})
-    console.log({ 
-    TEST_appid: appId, 
-    channel: channelName || "", 
-    token: currentConference?.token || "",
-    uid: profile?.connectionId || 0,
-  })
+    // console.log({TEST_JOIN_RESULT: result})
+    //   console.log({ 
+    //   TEST_appid: appId, 
+    //   channel: channelName || "", 
+    //   token: currentConference?.token || "",
+    //   uid: profile?.connectionId || 0,
+    // })
   }, [result])
 
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
