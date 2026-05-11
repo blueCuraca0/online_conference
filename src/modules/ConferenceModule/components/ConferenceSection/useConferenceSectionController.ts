@@ -24,6 +24,7 @@ export const useConferenceSectionController = () => {
 
   const [micOn, setMic] = useState(true);
   const [cameraOn, setCamera] = useState(true);
+  const [notesOpen, setNotesOpen] = useState(false);
 
   const client = useRTCClient();
   
@@ -99,6 +100,10 @@ export const useConferenceSectionController = () => {
     // TODO: open participants panel
   };
 
+  const handleNotes = () => {
+    setNotesOpen((prev) => !prev);
+  };
+
   const handleMore = () => {
     // TODO: open overflow menu with extra options
   };
@@ -120,6 +125,7 @@ export const useConferenceSectionController = () => {
     localCameraTrack,
     micOn,
     cameraOn,
+    notesOpen,
     isLoading,
     isConnected,
     actions: {
@@ -130,6 +136,7 @@ export const useConferenceSectionController = () => {
       handleRaise,
       handleChat,
       handlePeople,
+      handleNotes,
       handleMore,
       handleLeave,
     }

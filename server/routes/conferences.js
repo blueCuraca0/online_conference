@@ -29,7 +29,8 @@ router.get('/', async (req, res) => {
     .from('conferences')
     .select('*, conference_participants!inner(user_id, is_host)')
     .eq('conference_participants.user_id', req.userId)
-    .gte('date', new Date().toISOString());
+    .gte('date', new Date().toISOString())
+    .order('date', { ascending: true });
 
   if (error) return respond(res, { data: null, error });
 
@@ -59,10 +60,10 @@ router.post('/', async (req, res) => {
   const result = await supabase
     .from('conferences')
     .insert({ 
-      name: req.body.name, 
-      date: req.body.date, 
-      duration: req.body.duration, 
-      agenda: req.body.agenda, 
+      name: req.body.name,
+      date: req.body.date,
+      duration: req.body.duration,
+      agenda: req.body.agenda,
       creator_id: req.userId, 
       code
     })

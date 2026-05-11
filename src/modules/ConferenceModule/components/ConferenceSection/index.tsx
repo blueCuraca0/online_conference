@@ -8,6 +8,7 @@ import { styles } from "./styles";
 import { useConferenceSectionController } from "./useConferenceSectionController";
 import { AgoraWrapper } from "../AgoraWrapper";
 import VideoGrid from "../VideoGrid";
+import NotesPanel from "../NotesPanel";
 import { useConferenceStore } from "stores/conferenceStore";
 
 const ConferenceSectionInner: FC = () => {
@@ -16,6 +17,7 @@ const ConferenceSectionInner: FC = () => {
     localCameraTrack,
     micOn,
     cameraOn,
+    notesOpen,
     channelName,
     actions,
     isLoading,
@@ -30,6 +32,8 @@ const ConferenceSectionInner: FC = () => {
       </Box>
     );
   }
+
+  console.log(currentConference);
 
   return (
     <Box sx={styles.root}>
@@ -56,8 +60,15 @@ const ConferenceSectionInner: FC = () => {
         onRaise={actions.handleRaise}
         onChat={actions.handleChat}
         onPeople={actions.handlePeople}
+        onNotes={actions.handleNotes}
         onMore={actions.handleMore}
         onLeave={actions.handleLeave}
+      />
+
+      <NotesPanel
+        open={notesOpen}
+        notes={currentConference?.agenda ?? null}
+        onClose={actions.handleNotes}
       />
     </Box>
   );
