@@ -36,12 +36,12 @@ router.get('/', async (req, res) => {
   const ids = data.map((c) => c.id);
   const { data: participants } = await supabase
     .from('conference_participants')
-    .select('conference_id, user_id, users(id, name)')
+    .select('conference_id, user_id, users(id, name, connection_id)')
     .in('conference_id', ids);
 
   const participantsMap = (participants || []).reduce((acc, row) => {
     if (!acc[row.conference_id]) acc[row.conference_id] = [];
-    acc[row.conference_id].push({ userId: row.user_id, name: row.users?.name ?? null });
+    acc[row.conference_id].push({ userId: row.user_id, name: row.users?.name ?? null, connectionId: row.users?.connection_id ?? null });
     return acc;
   }, {});
 

@@ -37,11 +37,11 @@ const ParticipantTile: FC<Props> = ({ participant, children, sx }) => {
         </Box>
       )}
 
-      {(isHost || isYou) && (
+      {/* {(isHost || isYou) && (
         <Box sx={styles.roleBadge as SxProps}>
           {isHost ? t("badgeHost") : t("badgeYou")}
         </Box>
-      )}
+      )} */}
 
       <Box sx={styles.nameBadge as SxProps}>
         {isMuted && !isHost && !isYou && (

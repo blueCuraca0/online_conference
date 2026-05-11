@@ -8,6 +8,7 @@ import { styles } from "./styles";
 import { useConferenceSectionController } from "./useConferenceSectionController";
 import { AgoraWrapper } from "../AgoraWrapper";
 import VideoGrid from "../VideoGrid";
+import { useConferenceStore } from "stores/conferenceStore";
 
 const ConferenceSectionInner: FC = () => {
   const {
@@ -20,6 +21,7 @@ const ConferenceSectionInner: FC = () => {
     isLoading,
     isConnected,
   } = useConferenceSectionController();
+  const { currentConference } = useConferenceStore();
 
   if (isLoading) {   
     return (
@@ -33,7 +35,7 @@ const ConferenceSectionInner: FC = () => {
     <Box sx={styles.root}>
       <Box sx={styles.topBarWrapper as SxProps}>
         <ConferenceTopBar
-          title={isConnected ? "Connected" : "Not connected"}
+          title={isConnected ? (currentConference?.name || "Connected") : "Not connected"}
           participantCount={5}
           code={channelName ?? "204"}
           recordingTime="24:18"
@@ -41,7 +43,7 @@ const ConferenceSectionInner: FC = () => {
       </Box>
 
       <Box sx={styles.gridWrapper as SxProps}>
-        <VideoGrid localCameraTrack={localCameraTrack} localMicrophoneTrack={localMicrophoneTrack} micOn={micOn} cameraOn={cameraOn} />
+        <VideoGrid currentConference={currentConference} localCameraTrack={localCameraTrack} localMicrophoneTrack={localMicrophoneTrack} micOn={micOn} cameraOn={cameraOn} />
       </Box>
 
       <ConferenceToolbar

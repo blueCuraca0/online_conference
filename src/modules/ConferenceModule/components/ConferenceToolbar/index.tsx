@@ -42,16 +42,16 @@ const ConferenceToolbar: FC<Props> = ({
   const allTools = [
     { icon: micOn ? <MuteIcon /> : <MicOffToolbarIcon />, label: t("toolbarMute"), onClick: onMute, active: !micOn },
     { icon: cameraOn ? <CameraToolbarIcon /> : <CameraOffToolbarIcon />, label: t("toolbarCamera"), onClick: onCamera, active: !cameraOn },
-    { icon: <ShareIcon />, label: t("toolbarShare"), onClick: onShare },
-    { icon: <CaptionsIcon />, label: t("toolbarCaptions"), onClick: onCaptions },
-    { icon: <RaiseIcon />, label: t("toolbarRaise"), onClick: onRaise },
+    // { icon: <ShareIcon />, label: t("toolbarShare"), onClick: onShare },
+    // { icon: <CaptionsIcon />, label: t("toolbarCaptions"), onClick: onCaptions },
+    // { icon: <RaiseIcon />, label: t("toolbarRaise"), onClick: onRaise },
     { icon: <ChatIcon />, label: t("toolbarChat"), onClick: onChat },
     { icon: <PeopleToolbarIcon />, label: t("toolbarPeople"), onClick: onPeople },
-    { icon: <MoreToolbarIcon />, label: t("toolbarMore"), onClick: onMore },
+    // { icon: <MoreToolbarIcon />, label: t("toolbarMore"), onClick: onMore },
   ];
 
-  const primaryTools = [allTools[0], allTools[1], allTools[4]]; // mic, camera, raise
-  const secondaryTools = [allTools[2], allTools[3], allTools[5], allTools[6], allTools[7]]; // share, captions, chat, people, more
+  const primaryTools = [allTools[0], allTools[1]]; // mic, camera
+  const secondaryTools = [allTools[2], allTools[3]]; // chat, people
 
   const toolBtnSx = (active?: boolean) =>
     ({ ...styles.toolButton, ...(active ? styles.toolButtonActive : {}) }) as SxProps;
