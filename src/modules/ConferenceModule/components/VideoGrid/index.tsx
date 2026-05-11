@@ -29,7 +29,7 @@ const VideoGrid: FC<Props> = ({ currentConference, localMicrophoneTrack, localCa
   return (
     <Box sx={[styles.root, widthSx, { gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)` }] as SxProps}>
       {visibleRemote.map((user) => {
-        const participant = currentConference.participants.find((p) => p.connectionId === Number(user.uid));
+        const participant = currentConference?.participants.find((p) => p.connectionId === Number(user.uid));
 
         return (
           <ParticipantTile
