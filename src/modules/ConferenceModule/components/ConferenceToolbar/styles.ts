@@ -74,4 +74,41 @@ export const styles = {
     color: mainPalette.white,
     fontFamily: "'Proba Pro', Arial, serif",
   },
+
+  popoverPaper: {
+    borderRadius: "16px",
+    padding: "8px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+    minWidth: 200,
+  },
+  popoverItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "12px",
+    padding: "10px 14px",
+    borderRadius: "10px",
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    width: "100%",
+    textAlign: "left" as const,
+    "&:hover": {
+      backgroundColor: "rgba(84,107,65,0.08)",
+    },
+  },
+  popoverItemIcon: {
+    color: mainPalette.primary,
+    display: "flex",
+    alignItems: "center",
+    flexShrink: 0,
+  },
+  popoverItemLabel: {
+    fontSize: "14px !important",
+    color: "#4a4a3a",
+    fontFamily: "'Proba Pro', Arial, serif",
+  },
 };

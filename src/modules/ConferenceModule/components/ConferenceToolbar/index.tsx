@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { SxProps } from "@mui/material";
+import { FC, useState } from "react";
+import { Popover, SxProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import { Box } from "ui/Box";
@@ -37,8 +37,9 @@ const ConferenceToolbar: FC<Props> = ({
   micOn, cameraOn, onMute, onCamera, onShare, onCaptions, onRaise, onChat, onPeople, onMore, onLeave,
 }) => {
   const { t } = useTranslation();
+  const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null);
 
-  const tools = [
+  const allTools = [
     { icon: micOn ? <MuteIcon /> : <MicOffToolbarIcon />, label: t("toolbarMute"), onClick: onMute, active: !micOn },
     { icon: cameraOn ? <CameraToolbarIcon /> : <CameraOffToolbarIcon />, label: t("toolbarCamera"), onClick: onCamera, active: !cameraOn },
     { icon: <ShareIcon />, label: t("toolbarShare"), onClick: onShare },
@@ -49,31 +50,88 @@ const ConferenceToolbar: FC<Props> = ({
     { icon: <MoreToolbarIcon />, label: t("toolbarMore"), onClick: onMore },
   ];
 
+  const primaryTools = [allTools[0], allTools[1], allTools[4]]; // mic, camera, raise
+  const secondaryTools = [allTools[2], allTools[3], allTools[5], allTools[6], allTools[7]]; // share, captions, chat, people, more
+
+  const toolBtnSx = (active?: boolean) =>
+    ({ ...styles.toolButton, ...(active ? styles.toolButtonActive : {}) }) as SxProps;
+
   return (
-    <Box sx={styles.root as SxProps}>
-      {tools.map((tool) => (
-        <Box
-          key={tool.label}
-          component="button"
-          sx={{ ...styles.toolButton, ...("active" in tool && tool.active ? styles.toolButtonActive : {}) } as SxProps}
-          onClick={tool.onClick}
-        >
-          {tool.icon}
-          {INCLUDE_LABELS && <Typography sx={"active" in tool && tool.active ? styles.toolLabelActive : styles.toolLabel}>{tool.label}</Typography>}
+    <>
+      {/* Desktop toolbar — unchanged */}
+      <Box sx={{ ...styles.root, display: { mobile: "none", tablet: "flex" } } as SxProps}>
+        {allTools.map((tool) => (
+          <Box
+            key={tool.label}
+            component="button"
+            sx={toolBtnSx("active" in tool ? tool.active : false)}
+            onClick={tool.onClick}
+          >
+            {tool.icon}
+            {INCLUDE_LABELS && <Typography sx={"active" in tool && tool.active ? styles.toolLabelActive : styles.toolLabel}>{tool.label}</Typography>}
+          </Box>
+        ))}
+
+        <Box sx={styles.divider} />
+
+        <Box component="button" sx={styles.leaveButton as SxProps} onClick={onLeave}>
+          <PhoneOffIcon />
+          {INCLUDE_LABELS && <Typography sx={styles.leaveLabel}>{t("toolbarLeave")}</Typography>}
         </Box>
-      ))}
-
-      <Box sx={styles.divider} />
-
-      <Box
-        component="button"
-        sx={styles.leaveButton as SxProps}
-        onClick={onLeave}
-      >
-        <PhoneOffIcon />
-        {INCLUDE_LABELS && <Typography sx={styles.leaveLabel}>{t("toolbarLeave")}</Typography>}
       </Box>
-    </Box>
+
+      {/* Mobile toolbar — primary + three-dots + leave */}
+      <Box sx={{ ...styles.root, display: { mobile: "flex", tablet: "none" } } as SxProps}>
+        {primaryTools.map((tool) => (
+          <Box
+            key={tool.label}
+            component="button"
+            sx={toolBtnSx("active" in tool ? tool.active : false)}
+            onClick={tool.onClick}
+          >
+            {tool.icon}
+          </Box>
+        ))}
+
+        <Box sx={styles.divider} />
+
+        <Box
+          component="button"
+          sx={styles.toolButton as SxProps}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => setMoreAnchor(e.currentTarget)}
+        >
+          <MoreToolbarIcon />
+        </Box>
+
+        <Box sx={styles.divider} />
+
+        <Box component="button" sx={styles.leaveButton as SxProps} onClick={onLeave}>
+          <PhoneOffIcon />
+        </Box>
+      </Box>
+
+      {/* Action popup for secondary tools on mobile */}
+      <Popover
+        open={Boolean(moreAnchor)}
+        anchorEl={moreAnchor}
+        onClose={() => setMoreAnchor(null)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        transformOrigin={{ vertical: "bottom", horizontal: "center" }}
+        PaperProps={{ sx: styles.popoverPaper as SxProps }}
+      >
+        {secondaryTools.map((tool) => (
+          <Box
+            key={tool.label}
+            component="button"
+            sx={styles.popoverItem as SxProps}
+            onClick={() => { tool.onClick(); setMoreAnchor(null); }}
+          >
+            <Box sx={styles.popoverItemIcon}>{tool.icon}</Box>
+            <Typography sx={styles.popoverItemLabel}>{tool.label}</Typography>
+          </Box>
+        ))}
+      </Popover>
+    </>
   );
 };
 
