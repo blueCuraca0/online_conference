@@ -22,6 +22,12 @@ export const useConferenceTestController = (conferenceId: string | undefined, _i
     return () => clearInterval(interval);
   }, [conferenceId]);
 
+  const refetchTest = async () => {
+    if (!conferenceId) return;
+    const result = await conferenceTestApi.getConferenceTest(conferenceId);
+    if (result.success) setCurrentTest(mapConferenceTest(result.data));
+  };
+
   const createTest = async (question: ConferenceTestQuestion) => {
     if (!conferenceId) return;
     const result = await conferenceTestApi.createConferenceTest({ conference_id: conferenceId, question });
@@ -33,5 +39,5 @@ export const useConferenceTestController = (conferenceId: string | undefined, _i
     await conferenceTestApi.submitAnswer(conferenceId, isCorrect);
   };
 
-  return { createTest, submitAnswer };
+  return { refetchTest, createTest, submitAnswer };
 };

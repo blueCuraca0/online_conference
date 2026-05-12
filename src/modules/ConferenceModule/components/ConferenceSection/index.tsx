@@ -27,7 +27,7 @@ const ConferenceSectionInner: FC = () => {
     isConnected,
   } = useConferenceSectionController();
   const { currentConference, currentTest } = useConferenceStore();
-  const { submitAnswer } = useConferenceTestController(currentConference?.id, currentConference?.isHost ?? false);
+  const { submitAnswer, refetchTest, createTest } = useConferenceTestController(currentConference?.id, currentConference?.isHost ?? false);
 
   if (isLoading) {   
     return (
@@ -77,14 +77,15 @@ const ConferenceSectionInner: FC = () => {
         onClose={actions.handleNotes}
       />
 
-      {currentTest && (
-        <TestPanel
-          open={testOpen}
-          question={currentTest.question}
-          onClose={actions.handleTest}
-          onSubmit={submitAnswer}
-        />
-      )}
+      <TestPanel
+        open={testOpen}
+        isHost={currentConference?.isHost ?? false}
+        currentTest={currentTest}
+        onClose={actions.handleTest}
+        onRefetch={refetchTest}
+        onCreateTest={createTest}
+        onSubmit={submitAnswer}
+      />
     </Box>
   );
 };

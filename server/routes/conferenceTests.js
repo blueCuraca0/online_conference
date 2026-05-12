@@ -42,7 +42,7 @@ router.patch('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const result = await supabase
     .from('conference_tests')
-    .upsert(req.body, { onConflict: 'conference_id' })
+    .upsert({ ...req.body, total_answers: 0, total_correct: 0 }, { onConflict: 'conference_id' })
     .select()
     .single();
   respond(res, result);
