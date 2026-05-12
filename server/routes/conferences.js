@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     .from('conferences')
     .select('*, conference_participants!inner(user_id, is_host)')
     .eq('conference_participants.user_id', req.userId)
-    .gte('date', new Date().toISOString())
+    .gte('date', new Date(new Date().toDateString()).toISOString())
     .order('date', { ascending: true });
 
   if (error) return respond(res, { data: null, error });

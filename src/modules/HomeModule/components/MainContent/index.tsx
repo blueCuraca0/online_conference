@@ -6,19 +6,18 @@ import { Typography } from "ui/Typography";
 import StartConferenceCard from "../StartConferenceCard";
 import JoinConferenceCard from "../JoinConferenceCard";
 import UpNextSection from "../UpNextSection";
-import { SearchIcon } from "components/icons/SearchIcon";
 import { styles } from "./styles";
 import { useConferenceController } from "hooks/useConferenceController";
 import { useProfileStore } from "stores/profileStore";
 import { getToday } from "helpers";
 import ProfileAvatar from "components/ProfileAvatar";
 
-const today = getToday();
 
 const MainContent: FC = () => {
   const { t } = useTranslation();
   const { profile } = useProfileStore();
   useConferenceController(true);
+  const today = getToday();
 
   return (
     <Box sx={styles.root}>

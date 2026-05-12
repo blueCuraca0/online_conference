@@ -65,7 +65,6 @@
   "statDataBrokers": "data brokers",
 
   "homeGreeting": "Good morning, {{name}}",
-  "homeDate": "Tuesday, May 4",
   "homeTitle": "Where would you like to meet?",
   "searchRoomsPlaceholder": "Search rooms...",
   "startNewConference": "Start a new conference",
