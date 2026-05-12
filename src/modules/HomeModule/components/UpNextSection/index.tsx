@@ -7,7 +7,6 @@ import { Typography } from "ui/Typography";
 import { Button, EButtonType } from "components/Button";
 import ProfileAvatar from "components/ProfileAvatar";
 import ParticipantAvatarStack from "components/ParticipantAvatarStack";
-import { CalendarOpenIcon } from "components/icons/CalendarOpenIcon";
 import { styles } from "./styles";
 import { useConferenceStore } from "stores/conferenceStore";
 import { useProfileStore } from "stores/profileStore";
@@ -15,51 +14,6 @@ import { useNavigate } from "react-router-dom";
 import MeetingActionPopup from "components/MeetingActionPopup";
 import { useConferenceController } from "hooks/useConferenceController";
 import { Conference } from "types/conference";
-import { CONFERENCE_LINK_BASE } from "utils";
-
-// interface Meeting {
-//   time: string;
-//   day: string;
-//   title: string;
-//   hostInitials: string;
-//   hostColor: string;
-//   participantCount: number;
-//   timeUntil: string;
-//   isPrimary: boolean;
-// }
-
-// const STUB_MEETINGS: Meeting[] = [
-//   {
-//     time: "10:30 AM",
-//     day: "Today",
-//     title: "Q3 Roadmap — Studio Sync",
-//     hostInitials: "MG",
-//     hostColor: "#7B9C5A",
-//     participantCount: 5,
-//     timeUntil: "in 18m",
-//     isPrimary: true,
-//   },
-//   {
-//     time: "1:00 PM",
-//     day: "Today",
-//     title: "Pricing surface review",
-//     hostInitials: "Y",
-//     hostColor: "#5A7B9C",
-//     participantCount: 4,
-//     timeUntil: "in 3h 50m",
-//     isPrimary: false,
-//   },
-//   {
-//     time: "9:00 AM",
-//     day: "Tomorrow",
-//     title: "Quarterly client check-in — Knot & Vine",
-//     hostInitials: "NK",
-//     hostColor: "#9C7B5A",
-//     participantCount: 9,
-//     timeUntil: "in 23h",
-//     isPrimary: false,
-//   },
-// ];
 
 const UpNextSection: FC = () => {
   const { t } = useTranslation();

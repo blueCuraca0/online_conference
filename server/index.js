@@ -4,6 +4,7 @@ const cors = require('./middleware/cors');
 const auth = require('./middleware/auth');
 const usersRouter = require('./routes/users');
 const conferencesRouter = require('./routes/conferences');
+const conferenceTestsRouter = require('./routes/conferenceTests');
 const agoraRouter = require('./routes/agora');
 
 const app = express();
@@ -16,6 +17,7 @@ app.use('/agora', agoraRouter);
 
 app.use(auth);
 app.use('/conferences', conferencesRouter);
+app.use('/conference-tests', conferenceTestsRouter);
 app.get('/profile', (_req, res) => res.redirect('/users/profile'));
 
 app.listen(process.env.PORT, () => {

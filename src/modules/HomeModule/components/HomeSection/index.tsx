@@ -5,6 +5,7 @@ import { Box } from "ui/Box";
 import MainContent from "../MainContent";
 import { ProfileSection } from "modules/ProfileModule";
 import { AppearanceSection } from "modules/AppearanceModule";
+import { PrivacySection } from "modules/PrivacyModule";
 import { styles } from "./styles";
 import { useHomeSectionController } from "./useHomeSectionController";
 import StubContent from "../StubContent";
@@ -28,6 +29,8 @@ const HomeSection: FC = () => {
         return <ProfileSection />;
       case "appearance":
         return <AppearanceSection />;
+      case "privacySecurity":
+        return <PrivacySection />;
       default:
         return <StubContent section={activeSection} />;
     }

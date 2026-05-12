@@ -82,7 +82,7 @@ const SignInPanel: FC = () => {
         </Box>
 
         {/* Social sign-in */}
-        <Box sx={styles.socialButtons}>
+        {/* <Box sx={styles.socialButtons}>
           <Box sx={styles.socialButton} onClick={handleGoogleSignIn}>
             <GoogleIcon />
             <Typography variant="buttonText">{t("googleButton")}</Typography>
@@ -91,7 +91,7 @@ const SignInPanel: FC = () => {
             <AppleIcon />
             <Typography variant="buttonText">{t("appleButton")}</Typography>
           </Box>
-        </Box>
+        </Box> */}
 
         {/* Divider */}
         <Box sx={styles.dividerRow}>
@@ -157,12 +157,12 @@ const SignInPanel: FC = () => {
             />
           </Box>
 
-          <Box sx={styles.checkboxRow}>
+          {/* <Box sx={styles.checkboxRow}>
             <Checkbox sx={styles.checkbox} {...register("rememberDevice")} />
             <Typography variant="caption" color={basicTheme.palette.accentPalette.text}>
               {t("rememberDevice")}
             </Typography>
-          </Box>
+          </Box> */}
 
           <Button
             type="submit"

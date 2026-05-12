@@ -25,6 +25,7 @@ export const useConferenceSectionController = () => {
   const [micOn, setMic] = useState(true);
   const [cameraOn, setCamera] = useState(true);
   const [notesOpen, setNotesOpen] = useState(false);
+  const [testOpen, setTestOpen] = useState(false);
 
   const client = useRTCClient();
   
@@ -104,6 +105,10 @@ export const useConferenceSectionController = () => {
     setNotesOpen((prev) => !prev);
   };
 
+  const handleTest = () => {
+    setTestOpen((prev) => !prev);
+  };
+
   const handleMore = () => {
     // TODO: open overflow menu with extra options
   };
@@ -126,6 +131,7 @@ export const useConferenceSectionController = () => {
     micOn,
     cameraOn,
     notesOpen,
+    testOpen,
     isLoading,
     isConnected,
     actions: {
@@ -137,6 +143,7 @@ export const useConferenceSectionController = () => {
       handleChat,
       handlePeople,
       handleNotes,
+      handleTest,
       handleMore,
       handleLeave,
     }

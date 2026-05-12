@@ -13,6 +13,7 @@ import { CaptionsIcon } from "components/icons/CaptionsIcon";
 import { RaiseIcon } from "components/icons/RaiseIcon";
 import { ChatIcon } from "components/icons/ChatIcon";
 import { NotesIcon } from "components/icons/NotesIcon";
+import { TestIcon } from "components/icons/TestIcon";
 import { PeopleToolbarIcon } from "components/icons/PeopleToolbarIcon";
 import { MoreToolbarIcon } from "components/icons/MoreToolbarIcon";
 import { PhoneOffIcon } from "components/icons/PhoneOffIcon";
@@ -21,6 +22,7 @@ import { styles } from "./styles";
 interface Props {
   micOn: boolean;
   cameraOn: boolean;
+  testAvailable: boolean;
   onMute: () => void;
   onCamera: () => void;
   onShare: () => void;
@@ -29,6 +31,7 @@ interface Props {
   onChat: () => void;
   onPeople: () => void;
   onNotes: () => void;
+  onTest: () => void;
   onMore: () => void;
   onLeave: () => void;
 }
@@ -36,7 +39,7 @@ interface Props {
 const INCLUDE_LABELS = false;
 
 const ConferenceToolbar: FC<Props> = ({
-  micOn, cameraOn, onMute, onCamera, onShare, onCaptions, onRaise, onChat, onPeople, onNotes, onMore, onLeave,
+  micOn, cameraOn, testAvailable, onMute, onCamera, onShare, onCaptions, onRaise, onChat, onPeople, onNotes, onTest, onMore, onLeave,
 }) => {
   const { t } = useTranslation();
   const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null);
@@ -50,11 +53,12 @@ const ConferenceToolbar: FC<Props> = ({
     { icon: <ChatIcon />, label: t("toolbarChat"), onClick: onChat },
     { icon: <PeopleToolbarIcon />, label: t("toolbarPeople"), onClick: onPeople },
     { icon: <NotesIcon />, label: t("toolbarNotes"), onClick: onNotes },
+    ...(testAvailable ? [{ icon: <TestIcon />, label: t("toolbarTest"), onClick: onTest }] : []),
     // { icon: <MoreToolbarIcon />, label: t("toolbarMore"), onClick: onMore },
   ];
 
   const primaryTools = [allTools[0], allTools[1]]; // mic, camera
-  const secondaryTools = [allTools[2], allTools[3], allTools[4]]; // chat, people, notes
+  const secondaryTools = allTools.slice(2); // chat, people, notes, (quiz)
 
   const toolBtnSx = (active?: boolean) =>
     ({ ...styles.toolButton, ...(active ? styles.toolButtonActive : {}) }) as SxProps;

@@ -74,6 +74,7 @@ export const styles: SxStyles = {
     display: "flex",
     flexDirection: "column",
     gap: 2,
+    marginTop: 4,
   },
   nameRow: {
     display: "flex",

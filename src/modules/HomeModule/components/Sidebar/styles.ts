@@ -120,6 +120,14 @@ export const styles: SxStyles = {
       backgroundColor: "#F3F5F0",
     },
   },
+  nonActiveSettingsItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "10px",
+    padding: "7px 12px",
+    borderRadius: "8px",
+  },
   settingsIcon: {
     color: accentPalette.text,
     opacity: 0.55,

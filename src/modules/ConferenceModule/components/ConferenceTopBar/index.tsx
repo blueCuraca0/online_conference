@@ -37,11 +37,6 @@ const ConferenceTopBar: FC<Props> = ({ title, participantCount, code, recordingT
           <PeopleIcon />
           <span>{participantCount}</span>
         </Box>
-
-        <Box sx={styles.badge as SxProps}>
-          <LinkTopBarIcon />
-          <span>{`${CONFERENCE_LINK_BASE}${code}`}</span>
-        </Box>
       </Box>
     </Box>
   );

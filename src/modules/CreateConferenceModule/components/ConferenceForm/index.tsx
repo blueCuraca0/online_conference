@@ -121,10 +121,6 @@ const ConferenceForm: FC = () => {
     }
   };
 
-  // const handleCopyInviteLink = () => {
-  //   navigator.clipboard.writeText(link);
-  // };
-
   const handleSchedule = async () => {
     setIsLoading(true);
 

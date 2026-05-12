@@ -36,10 +36,6 @@ const JoinConferenceCard: FC = () => {
     if (e.key === "Enter") handleJoin();
   };
 
-  const handlePasteLink = () => {
-    // TODO: open paste-link dialog
-  };
-
   const codeChars = code.padEnd(CODE_LENGTH, " ").split("");
 
   return (

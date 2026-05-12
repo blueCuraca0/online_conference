@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { SxProps } from "@mui/material";
+import { Divider, SxProps } from "@mui/material";
 
 import { Box } from "ui/Box";
 import { Typography } from "ui/Typography";
@@ -71,6 +71,19 @@ const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange, open = fals
     },
   };
 
+  const tabs = [
+    { section: "profile" as ActiveSection, icon: <ProfileIcon />, label: t("navProfile") },
+    { section: "appearance" as ActiveSection, icon: <AppearanceIcon />, label: t("navAppearance") },
+    { section: "privacySecurity" as ActiveSection, icon: <LockIcon />, label: t("navPrivacySecurity") },
+    // { section: "notifications" as ActiveSection, icon: <BellIcon />, label: t("navNotifications") },
+    // { section: "shortcuts" as ActiveSection, icon: <ShortcutsIcon />, label: t("navShortcuts") },
+    // { section: "planBilling" as ActiveSection, icon: <BillingIcon />, label: t("navPlanBilling") },
+  ]
+  
+  const commingSoonTabs = [
+    { section: "audioVideo" as ActiveSection, icon: <AudioIcon />, label: t("navAudioVideo") },
+  ]
+
   return (
     <Box sx={rootSx}>
       <Box sx={styles.logoRow} onClick={() => onSectionChange("conferences")}>
@@ -104,22 +117,26 @@ const Sidebar: FC<SidebarProps> = ({ activeSection, onSectionChange, open = fals
 
       <Box sx={styles.settingsSection}>
         <Typography sx={styles.sectionLabel}>{t("navSettingsLabel").toUpperCase()}</Typography>
-        {(
-          [
-            { section: "profile" as ActiveSection, icon: <ProfileIcon />, label: t("navProfile") },
-            { section: "audioVideo" as ActiveSection, icon: <AudioIcon />, label: t("navAudioVideo") },
-            { section: "appearance" as ActiveSection, icon: <AppearanceIcon />, label: t("navAppearance") },
-            { section: "notifications" as ActiveSection, icon: <BellIcon />, label: t("navNotifications") },
-            { section: "privacySecurity" as ActiveSection, icon: <LockIcon />, label: t("navPrivacySecurity") },
-            { section: "shortcuts" as ActiveSection, icon: <ShortcutsIcon />, label: t("navShortcuts") },
-            { section: "planBilling" as ActiveSection, icon: <BillingIcon />, label: t("navPlanBilling") },
-          ] as const
-        ).map(({ section, icon, label }) => (
+        
+        {tabs.map(({ section, icon, label }) => (
           <Box key={section} sx={settingsItemSx(section)} onClick={() => onSectionChange(section)}>
             <Box sx={styles.settingsIcon}>{icon}</Box>
             <Typography sx={settingsTextSx(section)}>{label}</Typography>
           </Box>
         ))}
+
+        <Box sx={{opacity: 0.5}}>
+          <Divider sx={{my: 4}}/>
+
+          <Typography sx={styles.sectionLabel}>{t("navSettingsComingSoonLabel").toUpperCase()}</Typography>
+
+          {commingSoonTabs.map(({ section, icon, label }) => (
+            <Box key={section} sx={styles.nonActiveSettingsItem}>
+              <Box sx={styles.settingsIcon}>{icon}</Box>
+              <Typography sx={settingsTextSx(section)}>{label}</Typography>
+            </Box>
+          ))}
+          </Box>
       </Box>
 
       <Box sx={styles.logoutRow} onClick={handleLogOut}>

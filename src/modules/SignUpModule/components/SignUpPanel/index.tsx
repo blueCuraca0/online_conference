@@ -26,7 +26,7 @@ interface SignUpFormValues {
 }
 
 const OTP_LENGTH = 8;
-const STEP_KEYS = ["stepAccount", "stepWorkspace", "stepDevices"] as const;
+// const STEP_KEYS = ["stepAccount", "stepWorkspace", "stepDevices"] as const;
 
 const scorePassword = (password: string): number => {
   if (!password) return 0;
@@ -63,7 +63,7 @@ const SignUpPanel: FC = () => {
   const strengthLabels = ["", t("strengthWeak"), t("strengthFair"), t("strengthGood"), t("strengthStrong")];
   const strengthLabel = strengthLabels[filled] ?? "";
 
-  const steps = STEP_KEYS.map((key, i) => ({ label: t(key), step: i + 1 }));
+  // const steps = STEP_KEYS.map((key, i) => ({ label: t(key), step: i + 1 }));
 
   const onSubmit = async ({ email, password: pw, firstName, lastName }: SignUpFormValues) => {
     await handleSignUp(email, pw, firstName, lastName);
@@ -181,42 +181,6 @@ const SignUpPanel: FC = () => {
 
       {/* Main content */}
       <Box sx={styles.content}>
-        {/* Step indicator */}
-        <Box sx={styles.stepsRow}>
-          {steps.map((s, i) => {
-            const isActive = s.step === currentStep;
-            const isComplete = s.step < currentStep;
-            return (
-              <Box key={s.step} sx={styles.stepItem}>
-                {i > 0 && <Box sx={styles.stepConnector} />}
-                <Box sx={isActive || isComplete ? styles.stepCircleActive : styles.stepCircleInactive}>
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      fontWeight: 700,
-                      color: isActive || isComplete
-                        ? basicTheme.palette.mainPalette.white
-                        : "#C8C4B0",
-                    }}
-                  >
-                    {s.step}
-                  </Typography>
-                </Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontWeight: isActive ? 700 : 400,
-                    color: isActive
-                      ? basicTheme.palette.accentPalette.text
-                      : "#9E9880",
-                  }}
-                >
-                  {s.label}
-                </Typography>
-              </Box>
-            );
-          })}
-        </Box>
 
         {/* Title */}
         <Box sx={styles.titleBlock}>
