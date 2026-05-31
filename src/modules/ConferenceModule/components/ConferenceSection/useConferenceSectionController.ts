@@ -1,16 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Participant } from "./types";
 import { useEffect, useMemo, useState } from "react";
 import { useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish, useRTCClient } from "agora-rtc-react";
 import { useConferenceController } from "hooks/useConferenceController";
 import { useProfileStore } from "stores/profileStore";
-export const STUB_PARTICIPANTS: Participant[] = [
-  { id: "1", name: "Mira Gupta", isHost: true, isSpeaking: true },
-  { id: "2", name: "Sasha Khan", isMuted: true },
-  { id: "3", name: "Jules Reyes" },
-  { id: "4", name: "Alex Morrow", isYou: true, isMuted: true },
-  { id: "5", name: "Naomi Kestrel", isMuted: true, isCameraOff: true, initials: "NK" },
-];
 
 const appId = process.env.REACT_APP_AGORA_APP_ID || "";
 

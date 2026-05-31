@@ -18,13 +18,10 @@ interface Props {
 
 const VideoGrid: FC<Props> = ({ currentConference, localMicrophoneTrack, localCameraTrack, micOn, cameraOn }) => {
   const remoteUsers = useRemoteUsers();
-  // const remoteUsers = new Array(4).fill(remoteUsers1[0]);
   const totalCount = remoteUsers.length + 1;
   const { maxRemoteTiles, columns, rows } = getVideoGridLayout(totalCount);
   const widthSx = getVideoWidth(totalCount, rows);
   const visibleRemote = remoteUsers.slice(0, maxRemoteTiles);
-
-  console.log({ remoteUsers });
 
   return (
     <Box sx={[styles.root, widthSx, { gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)` }] as SxProps}>

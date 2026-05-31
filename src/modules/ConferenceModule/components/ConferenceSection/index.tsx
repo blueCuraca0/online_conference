@@ -57,7 +57,7 @@ const ConferenceSectionInner: FC = () => {
       <ConferenceToolbar
         micOn={micOn}
         cameraOn={cameraOn}
-        testAvailable={currentTest !== null}
+        testAvailable={currentTest !== null || (currentConference?.isHost ?? false)}
         onMute={actions.handleMute}
         onCamera={actions.handleCamera}
         onShare={actions.handleShare}
